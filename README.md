@@ -49,6 +49,38 @@ Pages* workflow publishes `docs/` on every push to `main` that touches it,
 and also after every successful *Fetch events* run — so the daily data
 refresh republishes the site automatically.
 
+## Password protection (Supabase)
+
+The dashboard supports the same **single shared-password login** used by
+Protest-Tracker-v2, and reuses that project's Supabase infrastructure: the
+private `dashboard` Storage bucket (authenticated read only) and the shared
+login account. Until the secrets below are configured the site keeps working
+in its original public mode — nothing breaks.
+
+**To turn the lock on**, add two repository secrets (*Settings → Secrets and
+variables → Actions*) with the **same values already used in the
+Protest-Tracker-v2 repo**:
+
+- `SUPABASE_URL` — the Supabase project URL
+- `SUPABASE_SERVICE_KEY` — the project's `service_role` key
+
+On the next *Fetch events* run the workflow uploads the feed to the private
+bucket as `live_events_data.json` and replaces the public
+`docs/data/events.json` with a `{"locked": true}` stub. From then on the site
+shows a password gate; signing in with the shared dashboard password (the same
+one as the protest tracker) unlocks the data. Sessions persist in the browser,
+and a SIGN OUT button appears in the header.
+
+Notes:
+- The Supabase **anon key in `docs/app.js` is public by design** — security
+  comes from Auth + the bucket's RLS policy, so the shared password's strength
+  is what matters.
+- The property list (`properties.json`) stays public: it's the mall directory,
+  not operational data. Only the event feed is locked.
+- Feed data committed before the lock remains in git history; it's public
+  ticketing data, but make the repo private if you want that closed too
+  (note: GitHub Pages on a free plan requires a public repo).
+
 ## Configuration
 
 Environment variables read by `scripts/fetch_events.py` (also exposed as inputs

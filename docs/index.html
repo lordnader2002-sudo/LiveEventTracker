@@ -25,10 +25,27 @@
         <div class="header-status">
             <div id="feed-status" class="feed-status">
                 <span class="dot"></span><span id="feed-status-text">Loading feed&hellip;</span>
+                <button id="sign-out" class="sign-out hidden" title="Sign out">SIGN OUT</button>
             </div>
             <div id="source-badges" class="source-badges"></div>
         </div>
     </header>
+
+    <div id="login-overlay" class="modal-backdrop hidden">
+        <div class="modal login-box">
+            <div class="brand" style="justify-content:center; margin-bottom:18px;">
+                <div class="brand-mark">LE</div>
+                <div>
+                    <h1>LIVE EVENTS</h1>
+                    <p class="tagline">TEAM ACCESS</p>
+                </div>
+            </div>
+            <p class="muted login-hint">Enter the shared dashboard password to continue.</p>
+            <input id="login-password" type="password" placeholder="Password" autocomplete="current-password">
+            <div id="login-error" class="login-error hidden"></div>
+            <button id="login-btn" class="secondary">SIGN IN</button>
+        </div>
+    </div>
 
     <div class="layout">
         <aside class="sidebar">
@@ -118,6 +135,7 @@
         </div>
     </div>
 
+    <script src="vendor/supabase/supabase.js"></script>
     <script src="vendor/leaflet/leaflet.js"></script>
     <script src="app.js"></script>
 </body>

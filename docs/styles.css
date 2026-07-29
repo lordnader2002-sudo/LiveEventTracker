@@ -290,6 +290,42 @@ button.secondary:hover { border-color: var(--accent); }
     font-family: ui-monospace, "SF Mono", Menlo, monospace;
 }
 
+/* -------------------------------------------------------------------- auth */
+
+.login-box { max-width: 380px; text-align: center; }
+.login-hint { font-size: 13px; margin-bottom: 16px; }
+.login-box input[type="password"] {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 8px;
+    padding: 11px 14px;
+    font-size: 15px;
+    text-align: center;
+    margin-bottom: 12px;
+}
+.login-box input[type="password"]:focus { outline: none; border-color: var(--accent); }
+.login-error {
+    color: #fca5a5;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+.login-box button.secondary { width: 100%; padding: 11px; }
+
+.sign-out {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 1px;
+    border-radius: 999px;
+    padding: 3px 10px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.sign-out:hover { border-color: var(--accent); color: var(--text); }
+
 .empty-state { text-align: center; padding: 60px 0; }
 .empty-state p:first-child { font-size: 17px; margin-bottom: 8px; }
 
