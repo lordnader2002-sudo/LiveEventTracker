@@ -6,6 +6,11 @@ on:
     branches: [main]
     paths: ["docs/**"]
   workflow_dispatch:
+  # The fetch workflow commits with GITHUB_TOKEN, and such pushes never fire
+  # `push` workflows — so redeploy whenever a fetch run completes instead.
+  workflow_run:
+    workflows: ["Fetch events"]
+    types: [completed]
 
 permissions:
   contents: read
@@ -18,12 +23,15 @@ concurrency:
 
 jobs:
   deploy:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - uses: actions/configure-pages@v5
 

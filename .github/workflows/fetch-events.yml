@@ -3,14 +3,15 @@ name: Fetch events
 
 on:
   schedule:
-    # Every 6 hours. Note: scheduled runs only fire on the default branch.
-    - cron: "17 */6 * * *"
+    # Every morning at 6am ET. GitHub cron is UTC, which has no DST awareness:
+    # 10:00 UTC = 6am EDT (summer) / 5am EST (winter).
+    - cron: "0 10 * * *"
   workflow_dispatch:
     inputs:
       radius_miles:
         description: "Search radius around each property (miles)"
         required: false
-        default: "15"
+        default: "10"
       lookahead_days:
         description: "How many days ahead to search"
         required: false
@@ -44,7 +45,7 @@ jobs:
           EVENTBRITE_API_TOKEN: ${{ secrets.EVENTBRITE_API_TOKEN }}
           STUBHUB_CLIENT_ID: ${{ secrets.STUBHUB_CLIENT_ID }}
           STUBHUB_CLIENT_SECRET: ${{ secrets.STUBHUB_CLIENT_SECRET }}
-          RADIUS_MILES: ${{ github.event.inputs.radius_miles || '15' }}
+          RADIUS_MILES: ${{ github.event.inputs.radius_miles || '10' }}
           LOOKAHEAD_DAYS: ${{ github.event.inputs.lookahead_days || '60' }}
         run: python scripts/fetch_events.py
 
