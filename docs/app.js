@@ -423,7 +423,10 @@
         table.appendChild(tbody);
         list.appendChild(table);
 
-        updateMap([]);
+        // Map shows every event and sizes property dots by activity —
+        // independent of list pagination.
+        rebuildPropertyMarkers(new Map(allRows.map((s) => [s.prop.property_id, s.events])));
+        updateMap(groupRows(filteredEvents()), true);
     }
 
     // -------------------------------------------- event list (property view)
@@ -444,6 +447,7 @@
         $("empty-state").classList.toggle("hidden", allRows.length > 0);
 
         const rows = paginate(allRows);
+        rebuildPropertyMarkers(null);
 
         const table = document.createElement("table");
         table.className = "events-table";
@@ -487,7 +491,7 @@
         table.appendChild(tbody);
         list.appendChild(table);
 
-        updateMap(rows);
+        updateMap(allRows);  // full set, not just the current page
     }
 
     // -------------------------------------------------------------------- map
@@ -496,6 +500,7 @@
     let eventLayer = null;
     let propertyLayer = null;
     let radiusCircle = null;
+    let canvasRenderer = null;
 
     function initMap() {
         if (typeof L === "undefined") {
@@ -509,37 +514,81 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
             maxZoom: 19,
         }).addTo(map);
+        // Canvas rendering keeps thousands of markers fast.
+        canvasRenderer = L.canvas({ padding: 0.5 });
         propertyLayer = L.layerGroup().addTo(map);
         eventLayer = L.layerGroup().addTo(map);
+        rebuildPropertyMarkers(null);
+    }
 
+    // Property dots. With a count map (overview), dot size reflects how many
+    // events are near the property; zero-event properties are dimmed.
+    function rebuildPropertyMarkers(countById) {
+        if (!map) return;
+        propertyLayer.clearLayers();
         for (const p of state.properties) {
+            const count = countById ? (countById.get(p.property_id) || 0) : null;
+            const quiet = count === 0;
             L.circleMarker([p.lat, p.lon], {
-                radius: 4, color: "#d92d2d", weight: 1.5,
-                fillColor: "#d92d2d", fillOpacity: 0.6,
-            }).bindTooltip(`${p.name} (${p.property_id})`)
+                renderer: canvasRenderer,
+                radius: count ? Math.min(13, 4 + Math.sqrt(count)) : 4,
+                color: "#d92d2d", weight: 1.5,
+                fillColor: "#d92d2d",
+                fillOpacity: quiet ? 0.15 : 0.6,
+                opacity: quiet ? 0.35 : 1,
+            }).bindTooltip(`${p.name} (${p.property_id})` +
+                    (count != null ? ` — ${count} event${count === 1 ? "" : "s"}` : ""))
               .on("click", () => selectProperty(p))
               .addTo(propertyLayer);
         }
     }
 
-    function updateMap(rows) {
+    function updateMap(rows, aggregateByVenue) {
         if (!map) return;
         eventLayer.clearLayers();
         if (radiusCircle) { radiusCircle.remove(); radiusCircle = null; }
 
         const bounds = [];
-        for (const group of rows) {
-            const { ev } = group;
-            const v = ev.venue || {};
-            if (v.lat == null) continue;
-            const extra = group.occurrences.length > 1 ? ` (+${group.occurrences.length - 1} more dates)` : "";
-            L.circleMarker([v.lat, v.lon], {
-                radius: 7, color: "#fbbf24", weight: 2,
-                fillColor: "#fbbf24", fillOpacity: 0.35,
-            }).bindTooltip(`${ev.title} — ${fmtWhen(ev)}${extra}`)
-              .on("click", () => showModal(group))
-              .addTo(eventLayer);
-            bounds.push([v.lat, v.lon]);
+        if (aggregateByVenue) {
+            // Overview: one marker per venue, sized by event count. Far fewer
+            // layers than per-event markers, which matters at feed scale.
+            const venues = new Map();
+            for (const g of rows) {
+                const v = g.ev.venue || {};
+                if (v.lat == null) continue;
+                const key = v.lat.toFixed(4) + "," + v.lon.toFixed(4);
+                let s = venues.get(key);
+                if (!s) {
+                    s = { lat: v.lat, lon: v.lon, name: v.name || "Venue", count: 0 };
+                    venues.set(key, s);
+                }
+                s.count++;
+            }
+            for (const s of venues.values()) {
+                L.circleMarker([s.lat, s.lon], {
+                    renderer: canvasRenderer,
+                    radius: Math.min(11, 4 + Math.sqrt(s.count)),
+                    color: "#fbbf24", weight: 1.5,
+                    fillColor: "#fbbf24", fillOpacity: 0.35,
+                }).bindTooltip(`${s.name} — ${s.count} event${s.count === 1 ? "" : "s"}`)
+                  .addTo(eventLayer);
+                bounds.push([s.lat, s.lon]);
+            }
+        } else {
+            for (const group of rows) {
+                const { ev } = group;
+                const v = ev.venue || {};
+                if (v.lat == null) continue;
+                const extra = group.occurrences.length > 1 ? ` (+${group.occurrences.length - 1} more dates)` : "";
+                L.circleMarker([v.lat, v.lon], {
+                    renderer: canvasRenderer,
+                    radius: 6, color: "#fbbf24", weight: 1.5,
+                    fillColor: "#fbbf24", fillOpacity: 0.35,
+                }).bindTooltip(`${ev.title} — ${fmtWhen(ev)}${extra}`)
+                  .on("click", () => showModal(group))
+                  .addTo(eventLayer);
+                bounds.push([v.lat, v.lon]);
+            }
         }
 
         if (state.selectedProperty) {
@@ -549,9 +598,9 @@
                 color: "#d92d2d", weight: 1, fillOpacity: 0.05,
             }).addTo(map);
             map.fitBounds(radiusCircle.getBounds(), { padding: [24, 24] });
-        } else if (bounds.length) {
-            map.fitBounds(bounds, { padding: [30, 30], maxZoom: 10 });
         }
+        // Overview keeps the current view — auto-fitting to all markers zooms
+        // out to include Hawaii/Alaska and shrinks the continental US.
     }
 
     // ------------------------------------------------------------------ modal
@@ -632,6 +681,7 @@
         state.selectedProperty = null;
         state.page = 1;
         $("property-chip").classList.add("hidden");
+        if (map) map.setView([39.8283, -98.5795], 4);
         render();
     }
 
@@ -661,10 +711,14 @@
 
     function setupControls() {
         const setFilter = (fn) => (e) => { fn(e); state.page = 1; render(); };
-        $("radius").addEventListener("input", setFilter((e) => {
+        let radiusTimer = null;
+        $("radius").addEventListener("input", (e) => {
             state.radius = +e.target.value;
             $("radius-value").textContent = state.radius;
-        }));
+            state.page = 1;
+            clearTimeout(radiusTimer);  // debounce: full re-render is heavy
+            radiusTimer = setTimeout(render, 150);
+        });
         $("keyword").addEventListener("input", setFilter((e) => { state.keyword = e.target.value.trim(); }));
         $("date-from").addEventListener("change", setFilter((e) => { state.dateFrom = e.target.value; }));
         $("date-to").addEventListener("change", setFilter((e) => { state.dateTo = e.target.value; }));
