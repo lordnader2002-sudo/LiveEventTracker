@@ -1,0 +1,35 @@
+{
+ "generated_at": "2026-07-29T04:48:25Z",
+ "config": {
+  "radius_miles": 15.0,
+  "lookahead_days": 60
+ },
+ "sources": {
+  "ticketmaster": {
+   "enabled": false,
+   "events": 0,
+   "errors": 0,
+   "note": "TICKETMASTER_API_KEY not set \u2014 skipped"
+  },
+  "seatgeek": {
+   "enabled": false,
+   "events": 0,
+   "errors": 0,
+   "note": "SEATGEEK_CLIENT_ID not set \u2014 skipped"
+  },
+  "eventbrite": {
+   "enabled": false,
+   "events": 0,
+   "errors": 0,
+   "note": "EVENTBRITE_API_TOKEN not set \u2014 skipped"
+  },
+  "stubhub": {
+   "enabled": false,
+   "events": 0,
+   "errors": 0,
+   "note": "STUBHUB_CLIENT_ID/SECRET not set \u2014 skipped (requires StubHub partner account)"
+  }
+ },
+ "event_count": 0,
+ "events": []
+}

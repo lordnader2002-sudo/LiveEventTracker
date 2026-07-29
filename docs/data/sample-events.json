@@ -1,0 +1,369 @@
+{
+ "generated_at": "2026-07-29T04:48:25Z",
+ "config": {
+  "radius_miles": 15.0,
+  "lookahead_days": 60
+ },
+ "sources": {
+  "ticketmaster": {
+   "enabled": true,
+   "events": 4,
+   "errors": 0,
+   "note": "sample fixture"
+  },
+  "seatgeek": {
+   "enabled": true,
+   "events": 3,
+   "errors": 0,
+   "note": "sample fixture"
+  },
+  "eventbrite": {
+   "enabled": true,
+   "events": 2,
+   "errors": 0,
+   "note": "sample fixture"
+  },
+  "stubhub": {
+   "enabled": true,
+   "events": 1,
+   "errors": 0,
+   "note": "sample fixture"
+  }
+ },
+ "sample": true,
+ "event_count": 10,
+ "events": [
+  {
+   "id": "sample:0",
+   "source": "ticketmaster",
+   "title": "Kenny Chesney: Sun Goes Down Tour",
+   "category": "Music",
+   "start_utc": "2026-08-03T23:30:25Z",
+   "start_local": "2026-08-03T18:30:25",
+   "venue": {
+    "name": "UBS Arena",
+    "address": "Belmont Park",
+    "city": "Elmont",
+    "state": "NY",
+    "lat": 40.75832,
+    "lon": -73.62396
+   },
+   "url": "https://example.com/sample-event",
+   "price_min": 79.5,
+   "price_max": 350.0,
+   "links": {
+    "ticketmaster": "https://example.com/sample-event"
+   },
+   "nearby_properties": [
+    {
+     "property_id": "ROOSEVELT",
+     "distance_miles": 1.5
+    },
+    {
+     "property_id": "WALTWHITMAN",
+     "distance_miles": 12.0
+    }
+   ]
+  },
+  {
+   "id": "sample:1",
+   "source": "seatgeek",
+   "title": "New York Knicks vs. Boston Celtics",
+   "category": "Sports",
+   "start_utc": "2026-08-10T23:30:25Z",
+   "start_local": "2026-08-10T18:30:25",
+   "venue": {
+    "name": "Madison Square Garden",
+    "address": "4 Pennsylvania Plaza",
+    "city": "New York",
+    "state": "NY",
+    "lat": 40.64832,
+    "lon": -73.74396
+   },
+   "url": "https://example.com/sample-event",
+   "price_min": 120.0,
+   "price_max": 890.0,
+   "links": {
+    "seatgeek": "https://example.com/sample-event"
+   },
+   "nearby_properties": [
+    {
+     "property_id": "ROOSEVELT",
+     "distance_miles": 9.2
+    }
+   ]
+  },
+  {
+   "id": "sample:2",
+   "source": "ticketmaster",
+   "title": "Disney On Ice presents Magic in the Stars",
+   "category": "Family",
+   "start_utc": "2026-08-06T23:30:25Z",
+   "start_local": "2026-08-06T18:30:25",
+   "venue": {
+    "name": "Dickies Arena",
+    "address": "1911 Montgomery St",
+    "city": "Fort Worth",
+    "state": "TX",
+    "lat": 32.99591,
+    "lon": -97.02279
+   },
+   "url": "https://example.com/sample-event",
+   "price_min": 25.0,
+   "price_max": 95.0,
+   "links": {
+    "ticketmaster": "https://example.com/sample-event"
+   },
+   "nearby_properties": [
+    {
+     "property_id": "GRAPEVINE",
+     "distance_miles": 2.4
+    }
+   ]
+  },
+  {
+   "id": "sample:3",
+   "source": "stubhub",
+   "title": "Bad Bunny \u2014 Most Wanted Tour",
+   "category": "Music",
+   "start_utc": "2026-08-19T23:30:25Z",
+   "start_local": "2026-08-19T18:30:25",
+   "venue": {
+    "name": "Kaseya Center",
+    "address": "601 Biscayne Blvd",
+    "city": "Miami",
+    "state": "FL",
+    "lat": 25.8287,
+    "lon": -80.33118
+   },
+   "url": "https://example.com/sample-event",
+   "price_min": 150.0,
+   "price_max": 1200.0,
+   "links": {
+    "stubhub": "https://example.com/sample-event"
+   },
+   "nearby_properties": [
+    {
+     "property_id": "MIAMIINTL",
+     "distance_miles": 3.5
+    },
+    {
+     "property_id": "DOLPHIN",
+     "distance_miles": 4.2
+    },
+    {
+     "property_id": "BRICKELL",
+     "distance_miles": 9.6
+    },
+    {
+     "property_id": "DADELAND",
+     "distance_miles": 9.6
+    },
+    {
+     "property_id": "THEFALLS",
+     "distance_miles": 12.6
+    }
+   ]
+  },
+  {
+   "id": "sample:4",
+   "source": "eventbrite",
+   "title": "Chicago Food Truck Festival",
+   "category": "Festival",
+   "start_utc": "2026-08-13T23:30:25Z",
+   "start_local": "2026-08-13T18:30:25",
+   "venue": {
+    "name": "Busse Woods Forest Preserve",
+    "address": "Higgins Rd",
+    "city": "Elk Grove Village",
+    "state": "IL",
+    "lat": 42.05576,
+    "lon": -88.02738
+   },
+   "url": "https://example.com/sample-event",
+   "price_min": 10.0,
+   "price_max": 10.0,
+   "links": {
+    "eventbrite": "https://example.com/sample-event"
+   },
+   "nearby_properties": [
+    {
+     "property_id": "WOODFIELDM",
+     "distance_miles": 0.9
+    }
+   ]
+  },
+  {
+   "id": "sample:5",
+   "source": "ticketmaster",
+   "title": "Monster Jam",
+   "category": "Sports",
+   "start_utc": "2026-08-28T23:30:25Z",
+   "start_local": "2026-08-28T18:30:25",
+   "venue": {
+    "name": "Charlotte Motor Speedway",
+    "address": "5555 Concord Pkwy S",
+    "city": "Concord",
+    "state": "NC",
+    "lat": 35.37494,
+    "lon": -80.71477
+   },
+   "url": "https://example.com/sample-event",
+   "price_min": 20.0,
+   "price_max": 75.0,
+   "links": {
+    "ticketmaster": "https://example.com/sample-event"
+   },
+   "nearby_properties": [
+    {
+     "property_id": "CONCORD",
+     "distance_miles": 0.7
+    }
+   ]
+  },
+  {
+   "id": "sample:6",
+   "source": "seatgeek",
+   "title": "Sabrina Carpenter: Short n' Sweet Tour",
+   "category": "Music",
+   "start_utc": "2026-08-07T23:30:25Z",
+   "start_local": "2026-08-07T18:30:25",
+   "venue": {
+    "name": "State Farm Arena",
+    "address": "1 State Farm Dr",
+    "city": "Atlanta",
+    "state": "GA",
+    "lat": 33.82673,
+    "lon": -84.33242
+   },
+   "url": "https://example.com/sample-event",
+   "price_min": 89.0,
+   "price_max": 425.0,
+   "links": {
+    "seatgeek": "https://example.com/sample-event"
+   },
+   "nearby_properties": [
+    {
+     "property_id": "LENOX",
+     "distance_miles": 2.2
+    },
+    {
+     "property_id": "PHIPPSPLAZA",
+     "distance_miles": 2.5
+    }
+   ]
+  },
+  {
+   "id": "sample:7",
+   "source": "eventbrite",
+   "title": "Comic Con Community Expo",
+   "category": "Convention",
+   "start_utc": "2026-08-16T23:30:25Z",
+   "start_local": "2026-08-16T18:30:25",
+   "venue": {
+    "name": "Las Vegas Convention Center",
+    "address": "3150 Paradise Rd",
+    "city": "Las Vegas",
+    "state": "NV",
+    "lat": 36.13202,
+    "lon": -115.15006
+   },
+   "url": "https://example.com/sample-event",
+   "price_min": 45.0,
+   "price_max": 145.0,
+   "links": {
+    "eventbrite": "https://example.com/sample-event"
+   },
+   "nearby_properties": [
+    {
+     "property_id": "VEGASCONVENTION",
+     "distance_miles": 0.1
+    },
+    {
+     "property_id": "ENCOREWYNNVEGAS",
+     "distance_miles": 0.9
+    },
+    {
+     "property_id": "SHOPSATCAESARS",
+     "distance_miles": 1.8
+    },
+    {
+     "property_id": "SHOPSCRYSTALS",
+     "distance_miles": 2.1
+    },
+    {
+     "property_id": "VEGASNORTHPO",
+     "distance_miles": 2.2
+    },
+    {
+     "property_id": "VEGASSOUTHPO",
+     "distance_miles": 5.5
+    }
+   ]
+  },
+  {
+   "id": "sample:8",
+   "source": "seatgeek",
+   "title": "Phoenix Suns vs. LA Lakers",
+   "category": "Sports",
+   "start_utc": "2026-08-02T23:30:25Z",
+   "start_local": "2026-08-02T18:30:25",
+   "venue": {
+    "name": "Footprint Center",
+    "address": "201 E Jefferson St",
+    "city": "Phoenix",
+    "state": "AZ",
+    "lat": 33.46327,
+    "lon": -111.90453
+   },
+   "url": "https://example.com/sample-event",
+   "price_min": 60.0,
+   "price_max": 510.0,
+   "links": {
+    "seatgeek": "https://example.com/sample-event"
+   },
+   "nearby_properties": [
+    {
+     "property_id": "ARZMILLS",
+     "distance_miles": 6.5
+    },
+    {
+     "property_id": "PHOENIXPO",
+     "distance_miles": 12.8
+    }
+   ]
+  },
+  {
+   "id": "sample:9",
+   "source": "ticketmaster",
+   "title": "Trans-Siberian Orchestra",
+   "category": "Music",
+   "start_utc": "2026-09-07T23:30:25Z",
+   "start_local": "2026-09-07T18:30:25",
+   "venue": {
+    "name": "NRG Stadium",
+    "address": "1 NRG Pkwy",
+    "city": "Houston",
+    "state": "TX",
+    "lat": 29.88552,
+    "lon": -95.66935
+   },
+   "url": "https://example.com/sample-event",
+   "price_min": 49.5,
+   "price_max": 199.5,
+   "links": {
+    "ticketmaster": "https://example.com/sample-event"
+   },
+   "nearby_properties": [
+    {
+     "property_id": "HOUSTONPO",
+     "distance_miles": 9.3
+    },
+    {
+     "property_id": "KATYMILLS",
+     "distance_miles": 11.3
+    }
+   ]
+  }
+ ]
+}
