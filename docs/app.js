@@ -755,8 +755,6 @@
             radiusTimer = setTimeout(render, 150);
         });
         $("keyword").addEventListener("input", setFilter((e) => { state.keyword = e.target.value.trim(); }));
-        $("date-from").addEventListener("change", setFilter((e) => { state.dateFrom = e.target.value; }));
-        $("date-to").addEventListener("change", setFilter((e) => { state.dateTo = e.target.value; }));
         $("category").addEventListener("change", setFilter((e) => { state.category = e.target.value; }));
         $("source").addEventListener("change", setFilter((e) => { state.source = e.target.value; }));
         $("property-clear").addEventListener("click", clearProperty);
@@ -764,7 +762,7 @@
             state.keyword = state.dateFrom = state.dateTo = state.category = state.source = "";
             state.radius = 10;
             state.sort = { key: null, dir: 1 };
-            $("keyword").value = $("date-from").value = $("date-to").value = "";
+            $("keyword").value = "";
             $("category").value = $("source").value = "";
             $("radius").value = 10;
             $("radius-value").textContent = "10";
