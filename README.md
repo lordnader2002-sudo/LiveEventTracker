@@ -8,7 +8,7 @@ mall properties, so operations teams can anticipate traffic and staffing impact.
   property in `data/properties.csv` and writes a normalized feed to
   `docs/data/events.json`.
 - **Automation** — the *Fetch events* GitHub Actions workflow runs the pipeline
-  every 6 hours (plus on demand) and commits the updated feed.
+  every morning at 6am ET (plus on demand) and commits the updated feed.
 - **UI** — `docs/` is a static site (GitHub Pages-ready): searchable property
   picker, radius/date/category/source/keyword filters, event cards, detail
   modal, and a Leaflet map showing properties and events.
@@ -38,15 +38,16 @@ API policies, which the feed's per-source status makes visible in the UI header.
 
 *Actions → Fetch events → Run workflow.* It fetches all sources, writes
 `docs/data/events.json` + `docs/data/properties.json`, and commits them.
-Scheduled (cron) runs only fire on the **default branch**, so the 6-hour
-schedule activates once this code is merged to `main`; until then use the
-manual *Run workflow* button.
+Scheduled (cron) runs only fire on the **default branch**. The schedule is
+daily at 10:00 UTC — 6am ET during daylight saving time, 5am ET in winter
+(GitHub cron has no DST awareness).
 
 ### 3. Enable GitHub Pages
 
 *Settings → Pages → Source: **GitHub Actions***. The *Deploy UI to GitHub
-Pages* workflow publishes `docs/` on every push to `main` that touches it
-(including the bot commits from the fetch workflow, so the site stays fresh).
+Pages* workflow publishes `docs/` on every push to `main` that touches it,
+and also after every successful *Fetch events* run — so the daily data
+refresh republishes the site automatically.
 
 ## Configuration
 
@@ -55,7 +56,7 @@ on the manual workflow run):
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `RADIUS_MILES` | `15` | Search radius around each property |
+| `RADIUS_MILES` | `10` | Search radius around each property |
 | `LOOKAHEAD_DAYS` | `60` | How far into the future to search |
 | `MAX_PROPERTIES` | `0` (all) | Limit properties processed — handy for testing |
 

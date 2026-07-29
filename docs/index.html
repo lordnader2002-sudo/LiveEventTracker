@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EventTrack &bull; Live Event Intelligence</title>
+    <title>Live Events</title>
     <link rel="icon" href="data:,">
     <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
     <link rel="stylesheet" href="styles.css">
@@ -16,10 +16,10 @@
 
     <header>
         <div class="brand">
-            <div class="brand-mark">ET</div>
+            <div class="brand-mark">LE</div>
             <div>
-                <h1>EVENTTRACK</h1>
-                <p class="tagline">LIVE EVENTS NEAR OUR PROPERTIES</p>
+                <h1>LIVE EVENTS</h1>
+                <p class="tagline">WITHIN 60 DAYS</p>
             </div>
         </div>
         <div class="header-status">
@@ -46,8 +46,8 @@
             </div>
 
             <div class="field">
-                <label for="radius">Radius <span id="radius-value" class="mono">15</span> mi</label>
-                <input id="radius" type="range" min="1" max="50" step="1" value="15">
+                <label for="radius">Radius <span id="radius-value" class="mono">10</span> mi</label>
+                <input id="radius" type="range" min="1" max="50" step="1" value="10">
             </div>
 
             <div class="field">
@@ -90,7 +90,7 @@
 
             <div id="map-container"><div id="map"></div></div>
 
-            <div id="events-grid" class="events-grid"></div>
+            <div id="events-list" class="events-list"></div>
             <div id="empty-state" class="empty-state hidden">
                 <p>No events match the current filters.</p>
                 <p class="muted">Widen the radius or date range, or clear the keyword.</p>

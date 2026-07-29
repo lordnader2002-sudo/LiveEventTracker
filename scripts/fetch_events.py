@@ -45,7 +45,7 @@ ROOT = Path(__file__).resolve().parent.parent
 PROPERTIES_CSV = ROOT / "data" / "properties.csv"
 OUT_DIR = ROOT / "docs" / "data"
 
-RADIUS_MILES = float(os.environ.get("RADIUS_MILES", "15"))
+RADIUS_MILES = float(os.environ.get("RADIUS_MILES", "10"))
 LOOKAHEAD_DAYS = int(os.environ.get("LOOKAHEAD_DAYS", "60"))
 MAX_PROPERTIES = int(os.environ.get("MAX_PROPERTIES", "0"))
 
@@ -121,6 +121,15 @@ def norm_title(title):
     return re.sub(r"[^a-z0-9]+", " ", (title or "").lower()).strip()
 
 
+def clean_category(name):
+    """Some sources return placeholder categories (Ticketmaster literally says
+    "Undefined" for uncategorized events) — collapse those to "Other"."""
+    name = (name or "").strip()
+    if not name or name.lower() in ("undefined", "miscellaneous", "unknown"):
+        return "Other"
+    return name
+
+
 # --------------------------------------------------------------------------- adapters
 #
 # Each adapter yields normalized event dicts:
@@ -176,7 +185,7 @@ def fetch_ticketmaster(props, window_start, window_end, status):
                 "id": f"tm:{ev['id']}",
                 "source": "ticketmaster",
                 "title": ev.get("name", "Untitled event"),
-                "category": segment or "Other",
+                "category": clean_category(segment),
                 "start_utc": dates.get("dateTime"),
                 "start_local": dates.get("localDate", "") + ("T" + dates["localTime"] if dates.get("localTime") else ""),
                 "venue": {
@@ -240,7 +249,7 @@ def fetch_seatgeek(props, window_start, window_end, status):
                     "id": f"sg:{ev['id']}",
                     "source": "seatgeek",
                     "title": ev.get("title", "Untitled event"),
-                    "category": category,
+                    "category": clean_category(category),
                     "start_utc": (ev.get("datetime_utc") + "Z") if ev.get("datetime_utc") else None,
                     "start_local": ev.get("datetime_local"),
                     "venue": {
@@ -311,7 +320,7 @@ def fetch_eventbrite(props, window_start, window_end, status):
                     "id": f"eb:{ev['id']}",
                     "source": "eventbrite",
                     "title": ((ev.get("name") or {}).get("text")) or "Untitled event",
-                    "category": ((ev.get("category") or {}).get("name")) or "Other",
+                    "category": clean_category((ev.get("category") or {}).get("name")),
                     "start_utc": start.get("utc"),
                     "start_local": start.get("local"),
                     "venue": {
@@ -393,8 +402,8 @@ def fetch_stubhub(props, window_start, window_end, status):
                 "id": f"sh:{ev['id']}",
                 "source": "stubhub",
                 "title": ev.get("name", "Untitled event"),
-                "category": (ev.get("categories") or [{}])[0].get("name", "Other")
-                            if isinstance(ev.get("categories"), list) else "Other",
+                "category": clean_category((ev.get("categories") or [{}])[0].get("name")
+                                           if isinstance(ev.get("categories"), list) else None),
                 "start_utc": ev.get("event_datetime_utc") or ev.get("eventDateUTC"),
                 "start_local": ev.get("event_datetime_local") or ev.get("eventDateLocal"),
                 "venue": {

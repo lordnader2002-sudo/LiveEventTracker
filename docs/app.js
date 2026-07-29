@@ -13,7 +13,8 @@
         feed: null,
         sample: false,
         selectedProperty: null,
-        radius: 15,
+        radius: 10,
+        sort: { key: null, dir: 1 },  // null key = default sort (distance/date)
         keyword: "",
         dateFrom: "",
         dateTo: "",
@@ -51,6 +52,22 @@
             s += " • " + d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
         }
         return s;
+    }
+
+    function fmtDateShort(ev) {
+        const local = ev.start_local || ev.start_utc;
+        if (!local) return "TBA";
+        const d = new Date(local);
+        if (isNaN(d)) return local.slice(0, 10);
+        return d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
+    }
+
+    function fmtTime(ev) {
+        const local = ev.start_local || ev.start_utc;
+        if (!local || local.length <= 10) return "";
+        const d = new Date(local);
+        if (isNaN(d)) return "";
+        return d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
     }
 
     function fmtPrice(ev) {
@@ -120,6 +137,12 @@
         state.sample = state.sample || !!feed.sample;
         state.feed = feed;
         state.events = feed.events || [];
+        // Older feeds may carry placeholder categories from the sources.
+        for (const ev of state.events) {
+            if (!ev.category || /^(undefined|miscellaneous|unknown)$/i.test(ev.category)) {
+                ev.category = "Other";
+            }
+        }
     }
 
     // ----------------------------------------------------------------- header
@@ -192,40 +215,94 @@
 
     // ----------------------------------------------------------------- render
 
+    const COLUMNS = [
+        { key: "date", label: "Date / Time" },
+        { key: "title", label: "Event" },
+        { key: "category", label: "Category" },
+        { key: "property", label: "Property" },
+        { key: "distance", label: "Distance" },
+        { key: "price", label: "Price" },
+        { key: null, label: "Source" },
+    ];
+
+    const SORTERS = {
+        date: (a, b) => eventDate(a.ev).localeCompare(eventDate(b.ev)),
+        title: (a, b) => a.ev.title.localeCompare(b.ev.title),
+        category: (a, b) => (a.ev.category || "").localeCompare(b.ev.category || ""),
+        property: (a, b) => ((a.dist.property || {}).name || "").localeCompare((b.dist.property || {}).name || ""),
+        distance: (a, b) => a.dist.miles - b.dist.miles,
+        price: (a, b) => (a.ev.price_min ?? Infinity) - (b.ev.price_min ?? Infinity),
+    };
+
+    function sortRows(rows) {
+        const { key, dir } = state.sort;
+        if (key && SORTERS[key]) {
+            rows.sort((a, b) => dir * SORTERS[key](a, b));
+        } else {
+            rows.sort(state.selectedProperty ? SORTERS.distance : SORTERS.date);
+        }
+        return rows;
+    }
+
+    function setSort(key) {
+        if (state.sort.key === key) {
+            state.sort.dir = -state.sort.dir;
+        } else {
+            state.sort = { key, dir: 1 };
+        }
+        render();
+    }
+
     function render() {
-        const rows = filteredEvents();
+        const rows = sortRows(filteredEvents());
         $("results-title").textContent = state.selectedProperty
             ? `${state.selectedProperty.name} — Nearby Events`
             : "All Properties — Event Feed";
         $("results-count").textContent =
             `${rows.length} EVENT${rows.length === 1 ? "" : "S"} • ${state.radius} MI RADIUS`;
 
-        const grid = $("events-grid");
-        grid.innerHTML = "";
+        const list = $("events-list");
+        list.innerHTML = "";
+        list.classList.toggle("hidden", rows.length === 0);
         $("empty-state").classList.toggle("hidden", rows.length > 0);
 
+        const table = document.createElement("table");
+        table.className = "events-table";
+
+        const thead = document.createElement("thead");
+        const headRow = document.createElement("tr");
+        for (const col of COLUMNS) {
+            const th = document.createElement("th");
+            const sorted = col.key && state.sort.key === col.key;
+            th.className = (col.key ? "sortable" : "") + (sorted ? " sorted" : "");
+            th.innerHTML = escapeHtml(col.label) +
+                (sorted ? `<span class="arrow">${state.sort.dir === 1 ? "▲" : "▼"}</span>` : "");
+            if (col.key) th.addEventListener("click", () => setSort(col.key));
+            headRow.appendChild(th);
+        }
+        thead.appendChild(headRow);
+        table.appendChild(thead);
+
+        const tbody = document.createElement("tbody");
         for (const { ev, dist } of rows) {
             const v = ev.venue || {};
-            const card = document.createElement("div");
-            card.className = "event-card";
-            const distLabel = dist.property
-                ? `${dist.miles.toFixed(1)} mi • ${escapeHtml(dist.property.property_id)}`
-                : "";
-            card.innerHTML = `
-                <div class="card-top">
-                    <span class="cat-tag">${escapeHtml(ev.category || "Event")}</span>
-                    <span class="dist-tag">${distLabel}</span>
-                </div>
-                <h3>${escapeHtml(ev.title)}</h3>
-                <p class="when">${escapeHtml(fmtWhen(ev))}</p>
-                <p class="where">${escapeHtml(v.name || "")}${v.city ? " • " + escapeHtml(v.city) : ""}${v.state ? ", " + escapeHtml(v.state) : ""}</p>
-                <div class="card-foot">
-                    <span>${escapeHtml(fmtPrice(ev))}</span>
-                    <span class="src">${escapeHtml(ev.source)}</span>
-                </div>`;
-            card.addEventListener("click", () => showModal(ev, dist));
-            grid.appendChild(card);
+            const tr = document.createElement("tr");
+            tr.className = "event-row";
+            const prop = dist.property;
+            tr.innerHTML = `
+                <td class="ev-when">${escapeHtml(fmtDateShort(ev))}<div class="ev-time">${escapeHtml(fmtTime(ev))}</div></td>
+                <td><div class="ev-title">${escapeHtml(ev.title)}</div>
+                    <div class="ev-venue">${escapeHtml(v.name || "")}${v.city ? " • " + escapeHtml(v.city) : ""}${v.state ? ", " + escapeHtml(v.state) : ""}</div></td>
+                <td class="nowrap"><span class="cat-tag">${escapeHtml(ev.category || "Event")}</span></td>
+                <td class="ev-prop">${prop ? escapeHtml(prop.name) : ""}</td>
+                <td class="ev-dist">${isFinite(dist.miles) ? dist.miles.toFixed(1) + " mi" : ""}</td>
+                <td class="ev-price">${escapeHtml(fmtPrice(ev))}</td>
+                <td class="ev-src">${escapeHtml(ev.source)}</td>`;
+            tr.addEventListener("click", () => showModal(ev, dist));
+            tbody.appendChild(tr);
         }
+        table.appendChild(tbody);
+        list.appendChild(table);
 
         updateMap(rows);
     }
@@ -244,7 +321,7 @@
             $("view-toggle").style.display = "none";
             return;
         }
-        map = L.map("map", { scrollWheelZoom: false }).setView([39.8283, -98.5795], 4);
+        map = L.map("map", { scrollWheelZoom: true }).setView([39.8283, -98.5795], 4);
         L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
             maxZoom: 19,
@@ -387,11 +464,12 @@
         $("property-clear").addEventListener("click", clearProperty);
         $("reset-filters").addEventListener("click", () => {
             state.keyword = state.dateFrom = state.dateTo = state.category = state.source = "";
-            state.radius = 15;
+            state.radius = 10;
+            state.sort = { key: null, dir: 1 };
             $("keyword").value = $("date-from").value = $("date-to").value = "";
             $("category").value = $("source").value = "";
-            $("radius").value = 15;
-            $("radius-value").textContent = "15";
+            $("radius").value = 10;
+            $("radius-value").textContent = "10";
             clearProperty();
         });
         $("view-toggle").addEventListener("click", () => {
