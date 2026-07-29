@@ -1,0 +1,61 @@
+# Fetches live events near all properties and commits the feed.
+name: Fetch events
+
+on:
+  schedule:
+    # Every 6 hours. Note: scheduled runs only fire on the default branch.
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+    inputs:
+      radius_miles:
+        description: "Search radius around each property (miles)"
+        required: false
+        default: "15"
+      lookahead_days:
+        description: "How many days ahead to search"
+        required: false
+        default: "60"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fetch-events
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Fetch events from all configured sources
+        env:
+          TICKETMASTER_API_KEY: ${{ secrets.TICKETMASTER_API_KEY }}
+          SEATGEEK_CLIENT_ID: ${{ secrets.SEATGEEK_CLIENT_ID }}
+          SEATGEEK_CLIENT_SECRET: ${{ secrets.SEATGEEK_CLIENT_SECRET }}
+          EVENTBRITE_API_TOKEN: ${{ secrets.EVENTBRITE_API_TOKEN }}
+          STUBHUB_CLIENT_ID: ${{ secrets.STUBHUB_CLIENT_ID }}
+          STUBHUB_CLIENT_SECRET: ${{ secrets.STUBHUB_CLIENT_SECRET }}
+          RADIUS_MILES: ${{ github.event.inputs.radius_miles || '15' }}
+          LOOKAHEAD_DAYS: ${{ github.event.inputs.lookahead_days || '60' }}
+        run: python scripts/fetch_events.py
+
+      - name: Commit updated feed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/data/events.json docs/data/properties.json
+          if git diff --cached --quiet; then
+            echo "No feed changes to commit."
+          else
+            git commit -m "Update event feed ($(date -u +'%Y-%m-%d %H:%M UTC'))"
+            git push
+          fi
