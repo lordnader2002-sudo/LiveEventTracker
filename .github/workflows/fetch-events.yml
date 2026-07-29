@@ -1,3 +1,4 @@
+# Fetches live events near all properties and commits the feed.
 name: Fetch events
 
 on:
