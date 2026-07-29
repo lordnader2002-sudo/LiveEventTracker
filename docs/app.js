@@ -567,10 +567,10 @@
             L.circleMarker([p.lat, p.lon], {
                 renderer: canvasRenderer,
                 radius: count ? Math.min(13, 4 + Math.sqrt(count)) : 4,
-                color: "#d92d2d", weight: 1.5,
-                fillColor: "#d92d2d",
-                fillOpacity: quiet ? 0.15 : 0.6,
-                opacity: quiet ? 0.35 : 1,
+                color: "#0a0e14", weight: 1.5,
+                fillColor: "#ffffff",
+                fillOpacity: quiet ? 0.15 : 0.95,
+                opacity: quiet ? 0.3 : 1,
             }).bindTooltip(`${p.name} (${p.property_id})` +
                     (count != null ? ` — ${count} event${count === 1 ? "" : "s"}` : ""))
               .on("click", () => selectProperty(p))
@@ -603,8 +603,8 @@
                 L.circleMarker([s.lat, s.lon], {
                     renderer: canvasRenderer,
                     radius: Math.min(11, 4 + Math.sqrt(s.count)),
-                    color: "#fbbf24", weight: 1.5,
-                    fillColor: "#fbbf24", fillOpacity: 0.35,
+                    color: "#ffffff", weight: 1,
+                    fillColor: "#eab308", fillOpacity: 0.85,
                 }).bindTooltip(`${s.name} — ${s.count} event${s.count === 1 ? "" : "s"}`)
                   .addTo(eventLayer);
                 bounds.push([s.lat, s.lon]);
@@ -617,8 +617,8 @@
                 const extra = group.occurrences.length > 1 ? ` (+${group.occurrences.length - 1} more dates)` : "";
                 L.circleMarker([v.lat, v.lon], {
                     renderer: canvasRenderer,
-                    radius: 6, color: "#fbbf24", weight: 1.5,
-                    fillColor: "#fbbf24", fillOpacity: 0.35,
+                    radius: 5, color: "#ffffff", weight: 1,
+                    fillColor: "#eab308", fillOpacity: 0.85,
                 }).bindTooltip(`${ev.title} — ${fmtWhen(ev)}${extra}`)
                   .on("click", () => showModal(group))
                   .addTo(eventLayer);
@@ -630,7 +630,7 @@
             const p = state.selectedProperty;
             radiusCircle = L.circle([p.lat, p.lon], {
                 radius: state.radius * 1609.34,
-                color: "#d92d2d", weight: 1, fillOpacity: 0.05,
+                color: "#a3e635", weight: 1, fillOpacity: 0.04,
             }).addTo(map);
             map.fitBounds(radiusCircle.getBounds(), { padding: [24, 24] });
         }
