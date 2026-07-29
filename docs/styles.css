@@ -117,6 +117,8 @@ header {
 .field input[type="range"] { width: 100%; accent-color: var(--accent); }
 
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.two-col > div { min-width: 0; }
+.field input[type="date"] { min-width: 0; font-size: 12px; }
 
 .property-results {
     position: absolute;

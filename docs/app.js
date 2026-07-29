@@ -14,7 +14,8 @@
         sample: false,
         selectedProperty: null,
         radius: 10,
-        sort: { key: null, dir: 1 },  // null key = default sort (distance/date)
+        sort: { key: null, dir: 1 },  // null key = default sort (distance)
+        ovSort: { key: "events", dir: -1 },
         page: 1,
         keyword: "",
         dateFrom: "",
@@ -196,22 +197,28 @@
         }
     }
 
-    function filteredEvents() {
+    // All non-geographic filters (keyword, category, source, date range).
+    function passesFilters(ev) {
+        if (state.category && ev.category !== state.category) return false;
+        if (state.source && ev.source !== state.source &&
+            !(ev.links && ev.links[state.source])) return false;
         const kw = state.keyword.toLowerCase();
+        if (kw) {
+            const hay = `${ev.title} ${ev.category} ${(ev.venue || {}).name || ""}`.toLowerCase();
+            if (!hay.includes(kw)) return false;
+        }
+        const d = eventDate(ev);
+        if (state.dateFrom && d && d < state.dateFrom) return false;
+        if (state.dateTo && d && d > state.dateTo) return false;
+        return true;
+    }
+
+    function filteredEvents() {
         const out = [];
         for (const ev of state.events) {
+            if (!passesFilters(ev)) continue;
             const dist = distanceFor(ev);
             if (dist.miles > state.radius) continue;
-            if (state.category && ev.category !== state.category) continue;
-            if (state.source && ev.source !== state.source &&
-                !(ev.links && ev.links[state.source])) continue;
-            if (kw) {
-                const hay = `${ev.title} ${ev.category} ${(ev.venue || {}).name || ""}`.toLowerCase();
-                if (!hay.includes(kw)) continue;
-            }
-            const d = eventDate(ev);
-            if (state.dateFrom && d && d < state.dateFrom) continue;
-            if (state.dateTo && d && d > state.dateTo) continue;
             out.push({ ev, dist });
         }
         return out;
@@ -287,26 +294,12 @@
 
     const PAGE_SIZE = 50;
 
-    function render() {
-        const allRows = sortRows(groupRows(filteredEvents()));
-        const dates = allRows.reduce((n, g) => n + g.occurrences.length, 0);
-        $("results-title").textContent = state.selectedProperty
-            ? `${state.selectedProperty.name} — Nearby Events`
-            : "All Properties — Event Feed";
-        $("results-count").textContent =
-            `${allRows.length} EVENT${allRows.length === 1 ? "" : "S"}` +
-            (dates > allRows.length ? ` (${dates} DATES)` : "") +
-            ` • ${state.radius} MI RADIUS`;
-
+    // Slice rows to the current page and render the pager. Returns the slice.
+    function paginate(allRows) {
         const pages = Math.max(1, Math.ceil(allRows.length / PAGE_SIZE));
         state.page = Math.min(Math.max(1, state.page), pages);
         const start = (state.page - 1) * PAGE_SIZE;
         const rows = allRows.slice(start, start + PAGE_SIZE);
-
-        const list = $("events-list");
-        list.innerHTML = "";
-        list.classList.toggle("hidden", rows.length === 0);
-        $("empty-state").classList.toggle("hidden", rows.length > 0);
 
         const pag = $("pagination");
         pag.classList.toggle("hidden", pages <= 1);
@@ -318,6 +311,143 @@
             $("pg-prev").addEventListener("click", () => { state.page--; render(); $("events-list").scrollIntoView({ block: "start" }); });
             $("pg-next").addEventListener("click", () => { state.page++; render(); $("events-list").scrollIntoView({ block: "start" }); });
         }
+        return rows;
+    }
+
+    function render() {
+        if (state.selectedProperty) renderEvents();
+        else renderOverview();
+    }
+
+    // ------------------------------------------------- overview (no property)
+
+    const OV_COLUMNS = [
+        { key: "property", label: "Property" },
+        { key: "events", label: "Events" },
+        { key: "dates", label: "Dates" },
+        { key: "closest", label: "Closest" },
+        { key: "next", label: "Next Event" },
+    ];
+
+    const OV_SORTERS = {
+        property: (a, b) => a.prop.name.localeCompare(b.prop.name),
+        events: (a, b) => a.events - b.events,
+        dates: (a, b) => a.dates - b.dates,
+        closest: (a, b) => a.closest - b.closest,
+        next: (a, b) => a.next.localeCompare(b.next),
+    };
+
+    function setOvSort(key) {
+        if (state.ovSort.key === key) {
+            state.ovSort.dir = -state.ovSort.dir;
+        } else {
+            state.ovSort = { key, dir: key === "events" || key === "dates" ? -1 : 1 };
+        }
+        state.page = 1;
+        render();
+    }
+
+    // One row per property: how much is happening near it.
+    function buildOverview() {
+        const stats = new Map();
+        for (const ev of state.events) {
+            if (!passesFilters(ev)) continue;
+            for (const np of ev.nearby_properties || []) {
+                if (np.distance_miles > state.radius) continue;
+                const prop = state.propertyById.get(np.property_id);
+                if (!prop) continue;
+                let s = stats.get(np.property_id);
+                if (!s) {
+                    s = { prop, dates: 0, groups: new Set(), closest: Infinity, next: "9999", nextEv: null };
+                    stats.set(np.property_id, s);
+                }
+                s.dates++;
+                s.groups.add(normKey(ev.title) + "|" + normKey((ev.venue || {}).name));
+                if (np.distance_miles < s.closest) s.closest = np.distance_miles;
+                const d = eventDate(ev);
+                if (d && d < s.next) { s.next = d; s.nextEv = ev; }
+            }
+        }
+        for (const s of stats.values()) s.events = s.groups.size;
+        return [...stats.values()];
+    }
+
+    function renderOverview() {
+        const allRows = buildOverview();
+        allRows.sort((a, b) => state.ovSort.dir * OV_SORTERS[state.ovSort.key](a, b));
+        const totalEvents = allRows.reduce((n, s) => n + s.events, 0);
+
+        $("results-title").textContent = "All Properties — Overview";
+        $("results-count").textContent =
+            `${allRows.length} PROPERTIES • ${totalEvents} EVENTS • ${state.radius} MI RADIUS — SELECT A PROPERTY FOR DETAIL`;
+
+        const list = $("events-list");
+        list.innerHTML = "";
+        list.classList.toggle("hidden", allRows.length === 0);
+        $("empty-state").classList.toggle("hidden", allRows.length > 0);
+
+        const rows = paginate(allRows);
+
+        const table = document.createElement("table");
+        table.className = "events-table";
+
+        const thead = document.createElement("thead");
+        const headRow = document.createElement("tr");
+        for (const col of OV_COLUMNS) {
+            const th = document.createElement("th");
+            const sorted = state.ovSort.key === col.key;
+            th.className = "sortable" + (sorted ? " sorted" : "");
+            th.innerHTML = escapeHtml(col.label) +
+                (sorted ? `<span class="arrow">${state.ovSort.dir === 1 ? "▲" : "▼"}</span>` : "");
+            th.addEventListener("click", () => setOvSort(col.key));
+            headRow.appendChild(th);
+        }
+        thead.appendChild(headRow);
+        table.appendChild(thead);
+
+        const tbody = document.createElement("tbody");
+        for (const s of rows) {
+            const tr = document.createElement("tr");
+            tr.className = "event-row";
+            tr.innerHTML = `
+                <td><div class="ev-title">${escapeHtml(s.prop.name)}</div>
+                    <div class="ev-venue">${escapeHtml(s.prop.property_id)}</div></td>
+                <td class="ev-dist">${s.events}</td>
+                <td class="ev-dist">${s.dates}</td>
+                <td class="ev-dist">${isFinite(s.closest) ? s.closest.toFixed(1) + " mi" : ""}</td>
+                <td class="ev-when">${s.nextEv ? escapeHtml(fmtDateShort(s.nextEv)) : ""}
+                    <div class="ev-venue">${s.nextEv ? escapeHtml(s.nextEv.title) : ""}</div></td>`;
+            tr.addEventListener("click", () => selectProperty(s.prop));
+            tbody.appendChild(tr);
+        }
+        table.appendChild(tbody);
+        list.appendChild(table);
+
+        // Map shows every event and sizes property dots by activity —
+        // independent of list pagination.
+        rebuildPropertyMarkers(new Map(allRows.map((s) => [s.prop.property_id, s.events])));
+        updateMap(groupRows(filteredEvents()), true);
+    }
+
+    // -------------------------------------------- event list (property view)
+
+    function renderEvents() {
+        const allRows = sortRows(groupRows(filteredEvents()));
+        const dates = allRows.reduce((n, g) => n + g.occurrences.length, 0);
+        $("results-title").textContent = `${state.selectedProperty.name} — Nearby Events`;
+        $("results-count").textContent =
+            `${allRows.length} EVENT${allRows.length === 1 ? "" : "S"}` +
+            (dates > allRows.length ? ` (${dates} DATES)` : "") +
+            ` • ${state.radius} MI RADIUS` +
+            (state.sort.key ? "" : " • CLOSEST FIRST");
+
+        const list = $("events-list");
+        list.innerHTML = "";
+        list.classList.toggle("hidden", allRows.length === 0);
+        $("empty-state").classList.toggle("hidden", allRows.length > 0);
+
+        const rows = paginate(allRows);
+        rebuildPropertyMarkers(null);
 
         const table = document.createElement("table");
         table.className = "events-table";
@@ -361,7 +491,7 @@
         table.appendChild(tbody);
         list.appendChild(table);
 
-        updateMap(rows);
+        updateMap(allRows);  // full set, not just the current page
     }
 
     // -------------------------------------------------------------------- map
@@ -370,6 +500,7 @@
     let eventLayer = null;
     let propertyLayer = null;
     let radiusCircle = null;
+    let canvasRenderer = null;
 
     function initMap() {
         if (typeof L === "undefined") {
@@ -383,37 +514,81 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
             maxZoom: 19,
         }).addTo(map);
+        // Canvas rendering keeps thousands of markers fast.
+        canvasRenderer = L.canvas({ padding: 0.5 });
         propertyLayer = L.layerGroup().addTo(map);
         eventLayer = L.layerGroup().addTo(map);
+        rebuildPropertyMarkers(null);
+    }
 
+    // Property dots. With a count map (overview), dot size reflects how many
+    // events are near the property; zero-event properties are dimmed.
+    function rebuildPropertyMarkers(countById) {
+        if (!map) return;
+        propertyLayer.clearLayers();
         for (const p of state.properties) {
+            const count = countById ? (countById.get(p.property_id) || 0) : null;
+            const quiet = count === 0;
             L.circleMarker([p.lat, p.lon], {
-                radius: 4, color: "#d92d2d", weight: 1.5,
-                fillColor: "#d92d2d", fillOpacity: 0.6,
-            }).bindTooltip(`${p.name} (${p.property_id})`)
+                renderer: canvasRenderer,
+                radius: count ? Math.min(13, 4 + Math.sqrt(count)) : 4,
+                color: "#d92d2d", weight: 1.5,
+                fillColor: "#d92d2d",
+                fillOpacity: quiet ? 0.15 : 0.6,
+                opacity: quiet ? 0.35 : 1,
+            }).bindTooltip(`${p.name} (${p.property_id})` +
+                    (count != null ? ` — ${count} event${count === 1 ? "" : "s"}` : ""))
               .on("click", () => selectProperty(p))
               .addTo(propertyLayer);
         }
     }
 
-    function updateMap(rows) {
+    function updateMap(rows, aggregateByVenue) {
         if (!map) return;
         eventLayer.clearLayers();
         if (radiusCircle) { radiusCircle.remove(); radiusCircle = null; }
 
         const bounds = [];
-        for (const group of rows) {
-            const { ev } = group;
-            const v = ev.venue || {};
-            if (v.lat == null) continue;
-            const extra = group.occurrences.length > 1 ? ` (+${group.occurrences.length - 1} more dates)` : "";
-            L.circleMarker([v.lat, v.lon], {
-                radius: 7, color: "#fbbf24", weight: 2,
-                fillColor: "#fbbf24", fillOpacity: 0.35,
-            }).bindTooltip(`${ev.title} — ${fmtWhen(ev)}${extra}`)
-              .on("click", () => showModal(group))
-              .addTo(eventLayer);
-            bounds.push([v.lat, v.lon]);
+        if (aggregateByVenue) {
+            // Overview: one marker per venue, sized by event count. Far fewer
+            // layers than per-event markers, which matters at feed scale.
+            const venues = new Map();
+            for (const g of rows) {
+                const v = g.ev.venue || {};
+                if (v.lat == null) continue;
+                const key = v.lat.toFixed(4) + "," + v.lon.toFixed(4);
+                let s = venues.get(key);
+                if (!s) {
+                    s = { lat: v.lat, lon: v.lon, name: v.name || "Venue", count: 0 };
+                    venues.set(key, s);
+                }
+                s.count++;
+            }
+            for (const s of venues.values()) {
+                L.circleMarker([s.lat, s.lon], {
+                    renderer: canvasRenderer,
+                    radius: Math.min(11, 4 + Math.sqrt(s.count)),
+                    color: "#fbbf24", weight: 1.5,
+                    fillColor: "#fbbf24", fillOpacity: 0.35,
+                }).bindTooltip(`${s.name} — ${s.count} event${s.count === 1 ? "" : "s"}`)
+                  .addTo(eventLayer);
+                bounds.push([s.lat, s.lon]);
+            }
+        } else {
+            for (const group of rows) {
+                const { ev } = group;
+                const v = ev.venue || {};
+                if (v.lat == null) continue;
+                const extra = group.occurrences.length > 1 ? ` (+${group.occurrences.length - 1} more dates)` : "";
+                L.circleMarker([v.lat, v.lon], {
+                    renderer: canvasRenderer,
+                    radius: 6, color: "#fbbf24", weight: 1.5,
+                    fillColor: "#fbbf24", fillOpacity: 0.35,
+                }).bindTooltip(`${ev.title} — ${fmtWhen(ev)}${extra}`)
+                  .on("click", () => showModal(group))
+                  .addTo(eventLayer);
+                bounds.push([v.lat, v.lon]);
+            }
         }
 
         if (state.selectedProperty) {
@@ -423,9 +598,9 @@
                 color: "#d92d2d", weight: 1, fillOpacity: 0.05,
             }).addTo(map);
             map.fitBounds(radiusCircle.getBounds(), { padding: [24, 24] });
-        } else if (bounds.length) {
-            map.fitBounds(bounds, { padding: [30, 30], maxZoom: 10 });
         }
+        // Overview keeps the current view — auto-fitting to all markers zooms
+        // out to include Hawaii/Alaska and shrinks the continental US.
     }
 
     // ------------------------------------------------------------------ modal
@@ -506,6 +681,7 @@
         state.selectedProperty = null;
         state.page = 1;
         $("property-chip").classList.add("hidden");
+        if (map) map.setView([39.8283, -98.5795], 4);
         render();
     }
 
@@ -535,10 +711,14 @@
 
     function setupControls() {
         const setFilter = (fn) => (e) => { fn(e); state.page = 1; render(); };
-        $("radius").addEventListener("input", setFilter((e) => {
+        let radiusTimer = null;
+        $("radius").addEventListener("input", (e) => {
             state.radius = +e.target.value;
             $("radius-value").textContent = state.radius;
-        }));
+            state.page = 1;
+            clearTimeout(radiusTimer);  // debounce: full re-render is heavy
+            radiusTimer = setTimeout(render, 150);
+        });
         $("keyword").addEventListener("input", setFilter((e) => { state.keyword = e.target.value.trim(); }));
         $("date-from").addEventListener("change", setFilter((e) => { state.dateFrom = e.target.value; }));
         $("date-to").addEventListener("change", setFilter((e) => { state.dateTo = e.target.value; }));
