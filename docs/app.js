@@ -15,7 +15,7 @@
         selectedProperty: null,
         radius: 10,
         sort: { key: null, dir: 1 },  // null key = default sort (distance)
-        ovSort: { key: "events", dir: -1 },
+        ovSort: { key: "property", dir: 1 },
         page: 1,
         keyword: "",
         dateFrom: "",
