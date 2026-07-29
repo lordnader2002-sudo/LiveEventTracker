@@ -15,6 +15,7 @@
         selectedProperty: null,
         radius: 10,
         sort: { key: null, dir: 1 },  // null key = default sort (distance/date)
+        page: 1,
         keyword: "",
         dateFrom: "",
         dateTo: "",
@@ -70,12 +71,18 @@
         return d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
     }
 
+    function fmtPriceRange(min, max) {
+        if (min == null && max == null) return "";
+        if (min != null && max != null && min !== max) return `$${min} – $${max}`;
+        return `$${min != null ? min : max}`;
+    }
+
     function fmtPrice(ev) {
-        if (ev.price_min == null && ev.price_max == null) return "";
-        if (ev.price_min != null && ev.price_max != null && ev.price_min !== ev.price_max) {
-            return `$${ev.price_min} – $${ev.price_max}`;
-        }
-        return `$${ev.price_min != null ? ev.price_min : ev.price_max}`;
+        return fmtPriceRange(ev.price_min, ev.price_max);
+    }
+
+    function normKey(s) {
+        return String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
     }
 
     function escapeHtml(s) {
@@ -207,9 +214,33 @@
             if (state.dateTo && d && d > state.dateTo) continue;
             out.push({ ev, dist });
         }
-        out.sort(state.selectedProperty
-            ? (a, b) => a.dist.miles - b.dist.miles
-            : (a, b) => eventDate(a.ev).localeCompare(eventDate(b.ev)));
+        return out;
+    }
+
+    // Collapse recurring events (same title at the same venue, e.g. a week-long
+    // residency) into one row carrying all of its dates.
+    function groupRows(rows) {
+        const groups = new Map();
+        for (const r of rows) {
+            const key = normKey(r.ev.title) + "|" + normKey((r.ev.venue || {}).name);
+            let g = groups.get(key);
+            if (!g) {
+                g = { dist: r.dist, occurrences: [] };
+                groups.set(key, g);
+            }
+            g.occurrences.push(r.ev);
+            if (r.dist.miles < g.dist.miles) g.dist = r.dist;
+        }
+        const out = [];
+        for (const g of groups.values()) {
+            g.occurrences.sort((a, b) => eventDate(a).localeCompare(eventDate(b)));
+            g.ev = g.occurrences[0];  // representative = first upcoming date
+            g.priceMin = g.occurrences.reduce(
+                (m, e) => e.price_min != null && (m == null || e.price_min < m) ? e.price_min : m, null);
+            g.priceMax = g.occurrences.reduce(
+                (m, e) => e.price_max != null && (m == null || e.price_max > m) ? e.price_max : m, null);
+            out.push(g);
+        }
         return out;
     }
 
@@ -231,7 +262,7 @@
         category: (a, b) => (a.ev.category || "").localeCompare(b.ev.category || ""),
         property: (a, b) => ((a.dist.property || {}).name || "").localeCompare((b.dist.property || {}).name || ""),
         distance: (a, b) => a.dist.miles - b.dist.miles,
-        price: (a, b) => (a.ev.price_min ?? Infinity) - (b.ev.price_min ?? Infinity),
+        price: (a, b) => (a.priceMin ?? Infinity) - (b.priceMin ?? Infinity),
     };
 
     function sortRows(rows) {
@@ -250,21 +281,43 @@
         } else {
             state.sort = { key, dir: 1 };
         }
+        state.page = 1;
         render();
     }
 
+    const PAGE_SIZE = 50;
+
     function render() {
-        const rows = sortRows(filteredEvents());
+        const allRows = sortRows(groupRows(filteredEvents()));
+        const dates = allRows.reduce((n, g) => n + g.occurrences.length, 0);
         $("results-title").textContent = state.selectedProperty
             ? `${state.selectedProperty.name} — Nearby Events`
             : "All Properties — Event Feed";
         $("results-count").textContent =
-            `${rows.length} EVENT${rows.length === 1 ? "" : "S"} • ${state.radius} MI RADIUS`;
+            `${allRows.length} EVENT${allRows.length === 1 ? "" : "S"}` +
+            (dates > allRows.length ? ` (${dates} DATES)` : "") +
+            ` • ${state.radius} MI RADIUS`;
+
+        const pages = Math.max(1, Math.ceil(allRows.length / PAGE_SIZE));
+        state.page = Math.min(Math.max(1, state.page), pages);
+        const start = (state.page - 1) * PAGE_SIZE;
+        const rows = allRows.slice(start, start + PAGE_SIZE);
 
         const list = $("events-list");
         list.innerHTML = "";
         list.classList.toggle("hidden", rows.length === 0);
         $("empty-state").classList.toggle("hidden", rows.length > 0);
+
+        const pag = $("pagination");
+        pag.classList.toggle("hidden", pages <= 1);
+        if (pages > 1) {
+            pag.innerHTML = `
+                <button id="pg-prev" class="secondary" ${state.page === 1 ? "disabled" : ""}>&larr; PREV</button>
+                <span class="pg-info">${start + 1}&ndash;${start + rows.length} OF ${allRows.length} &bull; PAGE ${state.page} / ${pages}</span>
+                <button id="pg-next" class="secondary" ${state.page === pages ? "disabled" : ""}>NEXT &rarr;</button>`;
+            $("pg-prev").addEventListener("click", () => { state.page--; render(); $("events-list").scrollIntoView({ block: "start" }); });
+            $("pg-next").addEventListener("click", () => { state.page++; render(); $("events-list").scrollIntoView({ block: "start" }); });
+        }
 
         const table = document.createElement("table");
         table.className = "events-table";
@@ -284,21 +337,25 @@
         table.appendChild(thead);
 
         const tbody = document.createElement("tbody");
-        for (const { ev, dist } of rows) {
+        for (const group of rows) {
+            const { ev, dist, occurrences } = group;
             const v = ev.venue || {};
             const tr = document.createElement("tr");
             tr.className = "event-row";
             const prop = dist.property;
+            const more = occurrences.length > 1
+                ? `<div class="ev-more">+${occurrences.length - 1} more date${occurrences.length > 2 ? "s" : ""}</div>`
+                : "";
             tr.innerHTML = `
-                <td class="ev-when">${escapeHtml(fmtDateShort(ev))}<div class="ev-time">${escapeHtml(fmtTime(ev))}</div></td>
+                <td class="ev-when">${escapeHtml(fmtDateShort(ev))}<div class="ev-time">${escapeHtml(fmtTime(ev))}</div>${more}</td>
                 <td><div class="ev-title">${escapeHtml(ev.title)}</div>
                     <div class="ev-venue">${escapeHtml(v.name || "")}${v.city ? " • " + escapeHtml(v.city) : ""}${v.state ? ", " + escapeHtml(v.state) : ""}</div></td>
                 <td class="nowrap"><span class="cat-tag">${escapeHtml(ev.category || "Event")}</span></td>
                 <td class="ev-prop">${prop ? escapeHtml(prop.name) : ""}</td>
                 <td class="ev-dist">${isFinite(dist.miles) ? dist.miles.toFixed(1) + " mi" : ""}</td>
-                <td class="ev-price">${escapeHtml(fmtPrice(ev))}</td>
+                <td class="ev-price">${escapeHtml(fmtPriceRange(group.priceMin, group.priceMax))}</td>
                 <td class="ev-src">${escapeHtml(ev.source)}</td>`;
-            tr.addEventListener("click", () => showModal(ev, dist));
+            tr.addEventListener("click", () => showModal(group));
             tbody.appendChild(tr);
         }
         table.appendChild(tbody);
@@ -345,14 +402,16 @@
         if (radiusCircle) { radiusCircle.remove(); radiusCircle = null; }
 
         const bounds = [];
-        for (const { ev } of rows) {
+        for (const group of rows) {
+            const { ev } = group;
             const v = ev.venue || {};
             if (v.lat == null) continue;
+            const extra = group.occurrences.length > 1 ? ` (+${group.occurrences.length - 1} more dates)` : "";
             L.circleMarker([v.lat, v.lon], {
                 radius: 7, color: "#fbbf24", weight: 2,
                 fillColor: "#fbbf24", fillOpacity: 0.35,
-            }).bindTooltip(`${ev.title} — ${fmtWhen(ev)}`)
-              .on("click", () => showModal(ev, distanceFor(ev)))
+            }).bindTooltip(`${ev.title} — ${fmtWhen(ev)}${extra}`)
+              .on("click", () => showModal(group))
               .addTo(eventLayer);
             bounds.push([v.lat, v.lon]);
         }
@@ -371,15 +430,37 @@
 
     // ------------------------------------------------------------------ modal
 
-    function showModal(ev, dist) {
+    function showModal(group) {
+        const { ev, dist } = group;
+        const occurrences = group.occurrences || [ev];
         const v = ev.venue || {};
+        const priceMin = group.priceMin !== undefined ? group.priceMin : ev.price_min;
+        const priceMax = group.priceMax !== undefined ? group.priceMax : ev.price_max;
+        const price = fmtPriceRange(priceMin, priceMax);
+        const when = occurrences.length > 1
+            ? `${occurrences.length} dates • ${fmtDateShort(occurrences[0])} – ${fmtDateShort(occurrences[occurrences.length - 1])}`
+            : fmtWhen(ev);
         $("modal-title").textContent = ev.title;
         $("modal-meta").innerHTML = `
-            <div><strong>When</strong> ${escapeHtml(fmtWhen(ev))}</div>
+            <div><strong>When</strong> ${escapeHtml(when)}</div>
             <div><strong>Venue</strong> ${escapeHtml(v.name || "Unknown")}${v.address ? " — " + escapeHtml(v.address) : ""}${v.city ? ", " + escapeHtml(v.city) : ""}${v.state ? ", " + escapeHtml(v.state) : ""}</div>
-            ${fmtPrice(ev) ? `<div><strong>Tickets</strong> ${escapeHtml(fmtPrice(ev))}</div>` : ""}
+            ${price ? `<div><strong>Tickets</strong> ${escapeHtml(price)}</div>` : ""}
             <div><strong>Category</strong> ${escapeHtml(ev.category || "Event")}</div>
             <div><strong>Source</strong> ${escapeHtml(ev.source)}</div>`;
+
+        const datesSection = $("modal-dates-section");
+        const datesList = $("modal-dates");
+        datesList.innerHTML = "";
+        datesSection.classList.toggle("hidden", occurrences.length <= 1);
+        for (const occ of occurrences) {
+            const links = occ.links || (occ.url ? { [occ.source]: occ.url } : {});
+            const linkHtml = Object.entries(links)
+                .filter(([, url]) => url)
+                .map(([src, url]) => `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(src)} ↗</a>`)
+                .join(" ");
+            datesList.insertAdjacentHTML("beforeend",
+                `<li><span>${escapeHtml(fmtWhen(occ))}</span><span class="date-links">${linkHtml}</span></li>`);
+        }
 
         const ul = $("modal-properties");
         ul.innerHTML = "";
@@ -413,6 +494,7 @@
 
     function selectProperty(p) {
         state.selectedProperty = p;
+        state.page = 1;
         $("property-search").value = "";
         $("property-results").classList.add("hidden");
         $("property-chip-name").textContent = `${p.name} (${p.property_id})`;
@@ -422,6 +504,7 @@
 
     function clearProperty() {
         state.selectedProperty = null;
+        state.page = 1;
         $("property-chip").classList.add("hidden");
         render();
     }
@@ -451,16 +534,16 @@
     // ------------------------------------------------------------------ wires
 
     function setupControls() {
-        $("radius").addEventListener("input", (e) => {
+        const setFilter = (fn) => (e) => { fn(e); state.page = 1; render(); };
+        $("radius").addEventListener("input", setFilter((e) => {
             state.radius = +e.target.value;
             $("radius-value").textContent = state.radius;
-            render();
-        });
-        $("keyword").addEventListener("input", (e) => { state.keyword = e.target.value.trim(); render(); });
-        $("date-from").addEventListener("change", (e) => { state.dateFrom = e.target.value; render(); });
-        $("date-to").addEventListener("change", (e) => { state.dateTo = e.target.value; render(); });
-        $("category").addEventListener("change", (e) => { state.category = e.target.value; render(); });
-        $("source").addEventListener("change", (e) => { state.source = e.target.value; render(); });
+        }));
+        $("keyword").addEventListener("input", setFilter((e) => { state.keyword = e.target.value.trim(); }));
+        $("date-from").addEventListener("change", setFilter((e) => { state.dateFrom = e.target.value; }));
+        $("date-to").addEventListener("change", setFilter((e) => { state.dateTo = e.target.value; }));
+        $("category").addEventListener("change", setFilter((e) => { state.category = e.target.value; }));
+        $("source").addEventListener("change", setFilter((e) => { state.source = e.target.value; }));
         $("property-clear").addEventListener("click", clearProperty);
         $("reset-filters").addEventListener("click", () => {
             state.keyword = state.dateFrom = state.dateTo = state.category = state.source = "";
