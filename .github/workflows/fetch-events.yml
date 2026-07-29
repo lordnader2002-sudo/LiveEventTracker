@@ -49,6 +49,28 @@ jobs:
           LOOKAHEAD_DAYS: ${{ github.event.inputs.lookahead_days || '30' }}
         run: python scripts/fetch_events.py
 
+      # When the Supabase secrets exist, the feed moves to the private bucket
+      # (authenticated read only) and the public copy becomes a lock stub, so
+      # the site requires the shared password. Without the secrets everything
+      # keeps working in the original public mode.
+      - name: Publish feed to Supabase private bucket
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_SERVICE_KEY" ]; then
+            echo "Supabase secrets not set — feed stays public in docs/data/events.json."
+            exit 0
+          fi
+          SUPABASE_URL="${SUPABASE_URL%/}"; SUPABASE_URL="${SUPABASE_URL%/rest/v1}"; SUPABASE_URL="${SUPABASE_URL%/}"
+          curl -fsS -X POST "${SUPABASE_URL}/storage/v1/object/dashboard/live_events_data.json" \
+            -H "apikey: ${SUPABASE_SERVICE_KEY}" \
+            -H "Authorization: Bearer ${SUPABASE_SERVICE_KEY}" \
+            -H "x-upsert: true" -H "Content-Type: application/json" \
+            --data-binary @docs/data/events.json
+          echo '{"locked": true}' > docs/data/events.json
+          echo "Feed uploaded to private bucket; public copy replaced with lock stub."
+
       - name: Commit updated feed
         run: |
           git config user.name "github-actions[bot]"

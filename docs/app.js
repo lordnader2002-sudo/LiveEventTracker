@@ -6,12 +6,27 @@
 (function () {
     "use strict";
 
+    /* ═══ SUPABASE CONFIG — same project, bucket, and shared login as
+       Protest-Tracker-v2. The anon key is public by design; access control
+       comes from Auth + the private bucket's RLS policy. ═══ */
+    const SUPABASE_URL = "https://dkeaeprelbhdabnvcsqc.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrZWFlcHJlbGJoZGFibnZjc3FjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0NTQ5MzcsImV4cCI6MjA5NjAzMDkzN30.Ehir5laOAKidIO8WU2yl2IoAslNqtLC3c6TVu4KJl_o";
+    const SHARED_EMAIL = "lordnader2002@gmail.com";  // the single shared login account
+    const DATA_BUCKET = "dashboard";                 // private Storage bucket
+    const DATA_OBJECT = "live_events_data.json";
+
+    const sb = (typeof supabase !== "undefined" && !SUPABASE_URL.includes("YOUR-PROJECT"))
+        ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+        : null;
+
     const state = {
         events: [],
         properties: [],
         propertyById: new Map(),
         feed: null,
         sample: false,
+        locked: false,
+        authed: false,
         selectedProperty: null,
         radius: 10,
         sort: { key: null, dir: 1 },  // null key = default sort (distance)
@@ -124,14 +139,34 @@
         return resp.json();
     }
 
+    // The feed comes from the private Supabase bucket when a session exists,
+    // falling back to the public docs/data/events.json until the Supabase
+    // secrets are configured (pre-lock mode). A stub {"locked": true} in the
+    // public file means the data has moved to the bucket and login is needed.
+    async function loadFeed() {
+        if (sb) {
+            const { data } = await sb.auth.getSession();
+            if (data && data.session) {
+                state.authed = true;
+                const { data: blob, error } = await sb.storage.from(DATA_BUCKET).download(DATA_OBJECT);
+                if (!error) return JSON.parse(await blob.text());
+                console.warn("Supabase feed download failed:", error.message || error);
+            }
+        }
+        try {
+            const feed = await loadJson("data/events.json");
+            if (!feed.locked) return feed;
+            state.locked = true;
+        } catch (e) { /* no public feed */ }
+        return null;
+    }
+
     async function loadData() {
         state.properties = await loadJson("data/properties.json");
         state.propertyById = new Map(state.properties.map((p) => [p.property_id, p]));
 
-        let feed = null;
-        try {
-            feed = await loadJson("data/events.json");
-        } catch (e) { /* no real feed yet */ }
+        let feed = await loadFeed();
+        if (!feed && state.locked && sb) return;  // boot() shows the login gate
 
         const anyEnabled = feed && Object.values(feed.sources || {}).some((s) => s.enabled);
         if (!feed || (!feed.events.length && !anyEnabled)) {
@@ -750,15 +785,55 @@
         });
     }
 
+    // ------------------------------------------------------------------ auth
+
+    function showLoginGate() {
+        $("feed-status-text").textContent = "Sign in required";
+        $("login-overlay").classList.remove("hidden");
+        $("login-password").focus();
+    }
+
+    async function doLogin() {
+        const pw = $("login-password").value;
+        if (!pw) return;
+        const err = $("login-error");
+        err.classList.add("hidden");
+        $("login-btn").disabled = true;
+        try {
+            const { error } = await sb.auth.signInWithPassword({ email: SHARED_EMAIL, password: pw });
+            if (error) throw new Error(error.message || "Sign-in failed");
+            location.reload();  // session is persisted; reload boots authenticated
+        } catch (e) {
+            err.textContent = /invalid/i.test(e.message) ? "Incorrect password." : e.message;
+            err.classList.remove("hidden");
+            $("login-btn").disabled = false;
+        }
+    }
+
+    function setupAuth() {
+        $("login-btn").addEventListener("click", doLogin);
+        $("login-password").addEventListener("keydown", (e) => { if (e.key === "Enter") doLogin(); });
+        $("sign-out").addEventListener("click", async () => {
+            if (sb) await sb.auth.signOut();
+            location.reload();
+        });
+    }
+
     // ------------------------------------------------------------------- boot
 
     async function boot() {
+        setupAuth();
         try {
             await loadData();
         } catch (e) {
             $("feed-status-text").textContent = "Failed to load data: " + e.message;
             return;
         }
+        if (state.locked && !state.feed) {
+            showLoginGate();
+            return;
+        }
+        if (state.authed) $("sign-out").classList.remove("hidden");
         renderHeader();
         populateFilterOptions();
         setupPropertySearch();
