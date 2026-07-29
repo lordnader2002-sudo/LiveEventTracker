@@ -16,8 +16,8 @@ Credentials (set as GitHub Actions secrets / local env vars):
     STUBHUB_CLIENT_ID, STUBHUB_CLIENT_SECRET
 
 Tuning (env vars):
-    RADIUS_MILES     search radius around each property (default 15)
-    LOOKAHEAD_DAYS   how far into the future to search (default 60)
+    RADIUS_MILES     search radius around each property (default 10)
+    LOOKAHEAD_DAYS   how far into the future to search (default 30)
     MAX_PROPERTIES   limit properties processed, 0 = all (for testing)
 
 Usage:
@@ -46,7 +46,7 @@ PROPERTIES_CSV = ROOT / "data" / "properties.csv"
 OUT_DIR = ROOT / "docs" / "data"
 
 RADIUS_MILES = float(os.environ.get("RADIUS_MILES", "10"))
-LOOKAHEAD_DAYS = int(os.environ.get("LOOKAHEAD_DAYS", "60"))
+LOOKAHEAD_DAYS = int(os.environ.get("LOOKAHEAD_DAYS", "30"))
 MAX_PROPERTIES = int(os.environ.get("MAX_PROPERTIES", "0"))
 
 USER_AGENT = "LiveEventTracker/1.0 (property operations event feed)"
@@ -167,7 +167,7 @@ def fetch_ticketmaster(props, window_start, window_end, status):
             log(f"WARN: ticketmaster query failed for {prop['property_id']}: {e}")
             continue
         for ev in (data.get("_embedded") or {}).get("events", []):
-            if ev.get("id") in seen:
+            if ev.get("id") in seen or ev.get("test"):
                 continue
             seen.add(ev.get("id"))
             venues = (ev.get("_embedded") or {}).get("venues") or [{}]

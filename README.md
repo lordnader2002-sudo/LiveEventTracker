@@ -57,7 +57,7 @@ on the manual workflow run):
 | Variable | Default | Meaning |
 |---|---|---|
 | `RADIUS_MILES` | `10` | Search radius around each property |
-| `LOOKAHEAD_DAYS` | `60` | How far into the future to search |
+| `LOOKAHEAD_DAYS` | `30` | How far into the future to search |
 | `MAX_PROPERTIES` | `0` (all) | Limit properties processed — handy for testing |
 
 ## Local development
@@ -83,7 +83,7 @@ python -m http.server 8000 --directory docs
 ```jsonc
 {
   "generated_at": "2026-07-29T05:00:00Z",
-  "config": { "radius_miles": 15, "lookahead_days": 60 },
+  "config": { "radius_miles": 10, "lookahead_days": 30 },
   "sources": { "ticketmaster": { "enabled": true, "events": 812, "errors": 0, "note": "" }, ... },
   "event_count": 812,
   "events": [

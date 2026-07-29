@@ -15,7 +15,7 @@ on:
       lookahead_days:
         description: "How many days ahead to search"
         required: false
-        default: "60"
+        default: "30"
 
 permissions:
   contents: write
@@ -46,7 +46,7 @@ jobs:
           STUBHUB_CLIENT_ID: ${{ secrets.STUBHUB_CLIENT_ID }}
           STUBHUB_CLIENT_SECRET: ${{ secrets.STUBHUB_CLIENT_SECRET }}
           RADIUS_MILES: ${{ github.event.inputs.radius_miles || '10' }}
-          LOOKAHEAD_DAYS: ${{ github.event.inputs.lookahead_days || '60' }}
+          LOOKAHEAD_DAYS: ${{ github.event.inputs.lookahead_days || '30' }}
         run: python scripts/fetch_events.py
 
       - name: Commit updated feed
