@@ -16,7 +16,7 @@ Credentials (set as GitHub Actions secrets / local env vars):
     STUBHUB_CLIENT_ID, STUBHUB_CLIENT_SECRET
 
 Tuning (env vars):
-    RADIUS_MILES     search radius around each property (default 10)
+    RADIUS_MILES     search radius around each property (default 5)
     LOOKAHEAD_DAYS   how far into the future to search (default 30)
     MAX_PROPERTIES   limit properties processed, 0 = all (for testing)
 
@@ -45,7 +45,7 @@ ROOT = Path(__file__).resolve().parent.parent
 PROPERTIES_CSV = ROOT / "data" / "properties.csv"
 OUT_DIR = ROOT / "docs" / "data"
 
-RADIUS_MILES = float(os.environ.get("RADIUS_MILES", "10"))
+RADIUS_MILES = float(os.environ.get("RADIUS_MILES", "5"))
 LOOKAHEAD_DAYS = int(os.environ.get("LOOKAHEAD_DAYS", "30"))
 MAX_PROPERTIES = int(os.environ.get("MAX_PROPERTIES", "0"))
 
@@ -79,6 +79,7 @@ def load_properties():
                     "postal_code": (row.get("postal_code") or "").strip(),
                     "lat": float(row["lat"]),
                     "lon": float(row["lon"]),
+                    "oic": (row.get("oic") or "").strip().upper() in ("TRUE", "1", "YES"),
                 })
             except (KeyError, ValueError) as e:
                 log(f"WARN: skipping bad property row {row!r}: {e}")

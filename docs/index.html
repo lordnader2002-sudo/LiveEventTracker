@@ -22,7 +22,7 @@
             <div class="brand-mark">LE</div>
             <div>
                 <h1>LIVE EVENTS</h1>
-                <p class="tagline">WITHIN 30 DAYS</p>
+                <p class="tagline">WITHIN 30 DAYS &bull; LESS THAN 5 MILES</p>
             </div>
         </div>
         <div class="header-status">
@@ -56,7 +56,7 @@
 
             <div class="field">
                 <label for="property-search">Property</label>
-                <input id="property-search" type="text" placeholder="Search 213 properties&hellip;"
+                <input id="property-search" type="text" placeholder="Search 216 properties&hellip;"
                        autocomplete="off">
                 <div id="property-results" class="property-results hidden"></div>
                 <div id="property-chip" class="property-chip hidden">
@@ -66,13 +66,16 @@
             </div>
 
             <div class="field">
-                <label for="radius">Radius <span id="radius-value" class="mono">10</span> mi</label>
-                <input id="radius" type="range" min="1" max="50" step="1" value="10">
+                <label for="keyword">Keyword</label>
+                <input id="keyword" type="text" placeholder="Concert, NBA, festival&hellip;">
             </div>
 
             <div class="field">
-                <label for="keyword">Keyword</label>
-                <input id="keyword" type="text" placeholder="Concert, NBA, festival&hellip;">
+                <label for="group">Property Group</label>
+                <select id="group">
+                    <option value="">All properties</option>
+                    <option value="oic">OIC Monitored Properties</option>
+                </select>
             </div>
 
             <div class="field">

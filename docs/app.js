@@ -28,7 +28,8 @@
         locked: false,
         authed: false,
         selectedProperty: null,
-        radius: 10,
+        group: "",  // "" = all properties, "oic" = OIC-monitored only
+        radius: 5,
         sort: { key: null, dir: 1 },  // null key = default sort (distance)
         ovSort: { key: "property", dir: 1 },
         page: 1,
@@ -118,13 +119,16 @@
         }
         let best = null;
         for (const np of ev.nearby_properties || []) {
+            const prop = state.propertyById.get(np.property_id);
+            if (!inGroup(prop)) continue;
             if (best === null || np.distance_miles < best.miles) {
-                best = { miles: np.distance_miles, property: state.propertyById.get(np.property_id) };
+                best = { miles: np.distance_miles, property: prop };
             }
         }
         if (best) return best;
         let min = Infinity, minProp = null;
         for (const p of state.properties) {
+            if (!inGroup(p)) continue;
             const d = haversineMiles(v.lat, v.lon, p.lat, p.lon);
             if (d < min) { min = d; minProp = p; }
         }
@@ -248,10 +252,21 @@
         return true;
     }
 
+    function inGroup(p) {
+        return !state.group || (p && p.oic);
+    }
+
     function filteredEvents() {
         const out = [];
         for (const ev of state.events) {
             if (!passesFilters(ev)) continue;
+            // With the OIC group active (and no specific property selected),
+            // only events near an OIC-monitored property count.
+            if (state.group && !state.selectedProperty) {
+                const nearOic = (ev.nearby_properties || []).some((np) =>
+                    np.distance_miles <= state.radius && inGroup(state.propertyById.get(np.property_id)));
+                if (!nearOic) continue;
+            }
             const dist = distanceFor(ev);
             if (dist.miles > state.radius) continue;
             out.push({ ev, dist });
@@ -390,7 +405,7 @@
             for (const np of ev.nearby_properties || []) {
                 if (np.distance_miles > state.radius) continue;
                 const prop = state.propertyById.get(np.property_id);
-                if (!prop) continue;
+                if (!prop || !inGroup(prop)) continue;
                 let s = stats.get(np.property_id);
                 if (!s) {
                     s = { prop, dates: 0, groups: new Set(), closest: Infinity, next: "9999", nextEv: null };
@@ -412,7 +427,9 @@
         allRows.sort((a, b) => state.ovSort.dir * OV_SORTERS[state.ovSort.key](a, b));
         const totalEvents = allRows.reduce((n, s) => n + s.events, 0);
 
-        $("results-title").textContent = "All Properties — Overview";
+        $("results-title").textContent = state.group
+            ? "OIC Monitored Properties — Overview"
+            : "All Properties — Overview";
         $("results-count").textContent =
             `${allRows.length} PROPERTIES • ${totalEvents} EVENTS • ${state.radius} MI RADIUS — SELECT A PROPERTY FOR DETAIL`;
 
@@ -728,9 +745,10 @@
             results.innerHTML = "";
             if (!q) { results.classList.add("hidden"); return; }
             const matches = state.properties.filter((p) =>
-                p.name.toLowerCase().includes(q) ||
-                p.property_id.toLowerCase().includes(q) ||
-                (p.address || "").toLowerCase().includes(q)).slice(0, 12);
+                inGroup(p) &&
+                (p.name.toLowerCase().includes(q) ||
+                 p.property_id.toLowerCase().includes(q) ||
+                 (p.address || "").toLowerCase().includes(q))).slice(0, 12);
             for (const p of matches) {
                 const row = document.createElement("div");
                 row.innerHTML = `${escapeHtml(p.name)} <span class="pr-id">${escapeHtml(p.property_id)}</span>`;
@@ -746,26 +764,17 @@
 
     function setupControls() {
         const setFilter = (fn) => (e) => { fn(e); state.page = 1; render(); };
-        let radiusTimer = null;
-        $("radius").addEventListener("input", (e) => {
-            state.radius = +e.target.value;
-            $("radius-value").textContent = state.radius;
-            state.page = 1;
-            clearTimeout(radiusTimer);  // debounce: full re-render is heavy
-            radiusTimer = setTimeout(render, 150);
-        });
         $("keyword").addEventListener("input", setFilter((e) => { state.keyword = e.target.value.trim(); }));
+        $("group").addEventListener("change", setFilter((e) => { state.group = e.target.value; }));
         $("category").addEventListener("change", setFilter((e) => { state.category = e.target.value; }));
         $("source").addEventListener("change", setFilter((e) => { state.source = e.target.value; }));
         $("property-clear").addEventListener("click", clearProperty);
         $("reset-filters").addEventListener("click", () => {
             state.keyword = state.dateFrom = state.dateTo = state.category = state.source = "";
-            state.radius = 10;
+            state.group = "";
             state.sort = { key: null, dir: 1 };
             $("keyword").value = "";
-            $("category").value = $("source").value = "";
-            $("radius").value = 10;
-            $("radius-value").textContent = "10";
+            $("group").value = $("category").value = $("source").value = "";
             clearProperty();
         });
         $("view-toggle").addEventListener("click", () => {

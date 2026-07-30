@@ -5,7 +5,8 @@
   "address": "2200 Louisiana Boulevard Northeast Albuquerque NM 87110",
   "postal_code": "87110",
   "lat": 35.07893,
-  "lon": -106.56826
+  "lon": -106.56826,
+  "oic": true
  },
  {
   "property_id": "ALBPO",
@@ -13,7 +14,8 @@
   "address": "6415 Labeaux Avenue Northeast Albertville MN 55301",
   "postal_code": "55301",
   "lat": 45.24665,
-  "lon": -93.66925
+  "lon": -93.66925,
+  "oic": false
  },
  {
   "property_id": "ALLENPO",
@@ -21,7 +23,8 @@
   "address": "820 West Stacy Road Allen TX 75013",
   "postal_code": "75013",
   "lat": 33.1327,
-  "lon": -96.66075
+  "lon": -96.66075,
+  "oic": true
  },
  {
   "property_id": "ANC5Ave",
@@ -29,7 +32,8 @@
   "address": "320 West 5th Avenue Anchorage AK 99501",
   "postal_code": "99501",
   "lat": 61.21696,
-  "lon": -149.88826
+  "lon": -149.88826,
+  "oic": true
  },
  {
   "property_id": "APPLEBLOS",
@@ -37,7 +41,8 @@
   "address": "1850 Apple Blossom Drive Winchester VA 22601",
   "postal_code": "22601",
   "lat": 39.16014,
-  "lon": -78.16336
+  "lon": -78.16336,
+  "oic": false
  },
  {
   "property_id": "ARZMILLS",
@@ -45,7 +50,8 @@
   "address": "5000 South Arizona Mills Circle Tempe AZ 85282",
   "postal_code": "85282",
   "lat": 33.38327,
-  "lon": -111.96453
+  "lon": -111.96453,
+  "oic": true
  },
  {
   "property_id": "ARUNMILLS",
@@ -53,7 +59,8 @@
   "address": "7000 Arundel Mills Circle Hanover MD 21076",
   "postal_code": "21076",
   "lat": 39.15722,
-  "lon": -76.72491
+  "lon": -76.72491,
+  "oic": true
  },
  {
   "property_id": "AUBURNM",
@@ -61,7 +68,8 @@
   "address": "385 Southbridge Street Auburn, MA 01501",
   "postal_code": "01501",
   "lat": 42.20208,
-  "lon": -71.83519
+  "lon": -71.83519,
+  "oic": false
  },
  {
   "property_id": "AURORAFARMS",
@@ -69,7 +77,8 @@
   "address": "549 Sotuh Chillicothe Road Aurora OH 44202",
   "postal_code": "44202",
   "lat": 41.30171,
-  "lon": -81.34315
+  "lon": -81.34315,
+  "oic": false
  },
  {
   "property_id": "BARTONCREEK",
@@ -77,7 +86,8 @@
   "address": "2901 Capital of Texas Highway Austin TX 78746",
   "postal_code": "78746",
   "lat": 30.25737,
-  "lon": -97.80718
+  "lon": -97.80718,
+  "oic": true
  },
  {
   "property_id": "BATTLEFIELD",
@@ -85,7 +95,8 @@
   "address": "2825 South Glenstone Avenue Springfield MO 65804",
   "postal_code": "65804",
   "lat": 37.16282,
-  "lon": -93.26571
+  "lon": -93.26571,
+  "oic": false
  },
  {
   "property_id": "BAYPARK",
@@ -93,7 +104,8 @@
   "address": "303 Bay Park Square Green Bay WI 54304",
   "postal_code": "54304",
   "lat": 44.48381,
-  "lon": -88.06604
+  "lon": -88.06604,
+  "oic": false
  },
  {
   "property_id": "BEVCENTER",
@@ -101,7 +113,8 @@
   "address": "8500 Beverly Boulevard, Los Angeles CA 90048",
   "postal_code": "90048",
   "lat": 34.07533,
-  "lon": -118.37738
+  "lon": -118.37738,
+  "oic": false
  },
  {
   "property_id": "BIRCHRUN",
@@ -109,7 +122,8 @@
   "address": "12240 South Beyer Road Birch Run MI 48415",
   "postal_code": "48415",
   "lat": 43.24632,
-  "lon": -83.77517
+  "lon": -83.77517,
+  "oic": false
  },
  {
   "property_id": "BREA",
@@ -117,7 +131,8 @@
   "address": "1065 Brea Mall Brea CA 92821",
   "postal_code": "92821",
   "lat": 33.91557,
-  "lon": -117.88629
+  "lon": -117.88629,
+  "oic": true
  },
  {
   "property_id": "BRIARWOOD",
@@ -125,7 +140,8 @@
   "address": "100 Briarwood Circle Ann Arbor MI 48108",
   "postal_code": "48108",
   "lat": 42.2403,
-  "lon": -83.74688
+  "lon": -83.74688,
+  "oic": true
  },
  {
   "property_id": "BRICKELL",
@@ -133,7 +149,8 @@
   "address": "701 S Miami Ave, Miami FL 33130 USA",
   "postal_code": "33130",
   "lat": 25.7677508,
-  "lon": -80.1930238
+  "lon": -80.1930238,
+  "oic": false
  },
  {
   "property_id": "BROADWAY",
@@ -141,7 +158,8 @@
   "address": "4601 South Broadway Tyler TX 75703",
   "postal_code": "75703",
   "lat": 32.2991781,
-  "lon": -95.3027361
+  "lon": -95.3027361,
+  "oic": false
  },
  {
   "property_id": "BURLINGTON",
@@ -149,7 +167,8 @@
   "address": "75 Middlesex Turnpike Burlington MA 01803",
   "postal_code": "01803",
   "lat": 42.482391,
-  "lon": -71.2136759
+  "lon": -71.2136759,
+  "oic": true
  },
  {
   "property_id": "CALHOUN",
@@ -157,7 +176,8 @@
   "address": "455 Belwood Road Calhoun GA 30701",
   "postal_code": "30701",
   "lat": 34.4619896,
-  "lon": -84.9185353
+  "lon": -84.9185353,
+  "oic": false
  },
  {
   "property_id": "CAMARILLO",
@@ -165,7 +185,8 @@
   "address": "740 East Ventura Boulevard Camarillo CA 93010",
   "postal_code": "93010",
   "lat": 34.2174406,
-  "lon": -119.0607103
+  "lon": -119.0607103,
+  "oic": false
  },
  {
   "property_id": "CAPECOD",
@@ -173,7 +194,8 @@
   "address": "769 Iyannough Road Hyannis MA 02601",
   "postal_code": "02601",
   "lat": 41.6673484,
-  "lon": -70.2966157
+  "lon": -70.2966157,
+  "oic": false
  },
  {
   "property_id": "CARLSBAD",
@@ -181,7 +203,8 @@
   "address": "5620 Paseo del Norte Carlsbad CA 92008",
   "postal_code": "92008",
   "lat": 33.1229539,
-  "lon": -117.3175914
+  "lon": -117.3175914,
+  "oic": false
  },
  {
   "property_id": "CAROLINA",
@@ -189,7 +212,8 @@
   "address": "1025 Industrial Park Drive Smithfield NC 27577",
   "postal_code": "27577",
   "lat": 35.5102043,
-  "lon": -78.316119
+  "lon": -78.316119,
+  "oic": false
  },
  {
   "property_id": "CASTLETON",
@@ -197,7 +221,8 @@
   "address": "6020 East 82nd Street Indianapolis IN 46250",
   "postal_code": "46250",
   "lat": 39.9092273,
-  "lon": -86.065379
+  "lon": -86.065379,
+  "oic": true
  },
  {
   "property_id": "CHARLOTTE",
@@ -205,7 +230,8 @@
   "address": "5404 New Fashion Way Charlotte NC 28278",
   "postal_code": "28278",
   "lat": 35.1683344,
-  "lon": -80.969752
+  "lon": -80.969752,
+  "oic": false
  },
  {
   "property_id": "CHERRYCREEK",
@@ -213,7 +239,8 @@
   "address": "3000 East 1st Avenue, Denver CO 80206",
   "postal_code": "80206",
   "lat": 39.7168661,
-  "lon": -104.9527576
+  "lon": -104.9527576,
+  "oic": false
  },
  {
   "property_id": "CHICAGOPO",
@@ -221,7 +248,8 @@
   "address": "1650 Premium Outlet Boulevard Aurora IL 60502",
   "postal_code": "60502",
   "lat": 41.8005082,
-  "lon": -88.2749343
+  "lon": -88.2749343,
+  "oic": true
  },
  {
   "property_id": "CIELOVISTA",
@@ -229,7 +257,8 @@
   "address": "8401 Gateway Boulevard West El Paso TX 79925",
   "postal_code": "79925",
   "lat": 31.7737267,
-  "lon": -106.38104
+  "lon": -106.38104,
+  "oic": true
  },
  {
   "property_id": "CINCINNATI",
@@ -237,7 +266,8 @@
   "address": "400 Premium Outlets Drive Monroe OH 45050",
   "postal_code": "45050",
   "lat": 39.4337564,
-  "lon": -84.3365389
+  "lon": -84.3365389,
+  "oic": false
  },
  {
   "property_id": "CITYCREEK",
@@ -245,7 +275,8 @@
   "address": "50 South Main Street, Salt Lake City UT 84101",
   "postal_code": "84101",
   "lat": 40.768357,
-  "lon": -111.8917453
+  "lon": -111.8917453,
+  "oic": false
  },
  {
   "property_id": "CLARKSBURG",
@@ -253,7 +284,8 @@
   "address": "22705 Clarksburg Rd Clarksburg MD 20871",
   "postal_code": "20871",
   "lat": 39.2284351,
-  "lon": -77.2872958
+  "lon": -77.2872958,
+  "oic": false
  },
  {
   "property_id": "CLINTON",
@@ -261,7 +293,8 @@
   "address": "20-A Killingworth Turnpike Clinton CT 06413",
   "postal_code": "06413",
   "lat": 41.2895459,
-  "lon": -72.5317866
+  "lon": -72.5317866,
+  "oic": false
  },
  {
   "property_id": "COCONUT",
@@ -269,7 +302,8 @@
   "address": "23106 Fashion Drive Estero FL 33928",
   "postal_code": "33928",
   "lat": 26.4016488,
-  "lon": -81.807491
+  "lon": -81.807491,
+  "oic": true
  },
  {
   "property_id": "COLLEGE",
@@ -277,7 +311,8 @@
   "address": "2894 East Third Street Bloomington IN 47401",
   "postal_code": "47401",
   "lat": 39.1617753,
-  "lon": -86.4944428
+  "lon": -86.4944428,
+  "oic": false
  },
  {
   "property_id": "COLORADO",
@@ -285,7 +320,8 @@
   "address": "14500 West Colfax Avenue Lakewood CO 80401",
   "postal_code": "80401",
   "lat": 39.7317152,
-  "lon": -105.1613776
+  "lon": -105.1613776,
+  "oic": true
  },
  {
   "property_id": "COLUMBIACTR",
@@ -293,7 +329,8 @@
   "address": "1321 North Columbia Center Boulevard Kennewick WA 99336",
   "postal_code": "99336",
   "lat": 46.2263903,
-  "lon": -119.2276594
+  "lon": -119.2276594,
+  "oic": false
  },
  {
   "property_id": "CONCORD",
@@ -301,7 +338,8 @@
   "address": "8111 Concord Mills Blvd Concord NC 28027",
   "postal_code": "28027",
   "lat": 35.3699428,
-  "lon": -80.7247667
+  "lon": -80.7247667,
+  "oic": true
  },
  {
   "property_id": "COPLEY",
@@ -309,7 +347,8 @@
   "address": "2 Copley Place Boston MA 02116",
   "postal_code": "02116",
   "lat": 42.3476153,
-  "lon": -71.077633
+  "lon": -71.077633,
+  "oic": true
  },
  {
   "property_id": "CORALSQR",
@@ -317,7 +356,8 @@
   "address": "9469 West Atlantic Boulevard Coral Springs FL 33071",
   "postal_code": "33071",
   "lat": 26.2410392,
-  "lon": -80.2492081
+  "lon": -80.2492081,
+  "oic": false
  },
  {
   "property_id": "CORDOVA",
@@ -325,7 +365,8 @@
   "address": "5100 North 9th Avenue Pensacola FL 32504",
   "postal_code": "32504",
   "lat": 30.4754844,
-  "lon": -87.2080135
+  "lon": -87.2080135,
+  "oic": false
  },
  {
   "property_id": "DADELAND",
@@ -333,7 +374,8 @@
   "address": "7535 Dadeland Mall Miami FL 33156",
   "postal_code": "33156",
   "lat": 25.6905361,
-  "lon": -80.312504
+  "lon": -80.312504,
+  "oic": true
  },
  {
   "property_id": "DELAMO",
@@ -341,7 +383,8 @@
   "address": "3525 Carson Street Torrance CA 90503",
   "postal_code": "90503",
   "lat": 33.8310336,
-  "lon": -118.3497562
+  "lon": -118.3497562,
+  "oic": true
  },
  {
   "property_id": "DENVERPO",
@@ -349,7 +392,8 @@
   "address": "13801 Grant Street Thornton CO 80023",
   "postal_code": "80023",
   "lat": 39.9891746,
-  "lon": -104.9828433
+  "lon": -104.9828433,
+  "oic": false
  },
  {
   "property_id": "DESERTHILLS",
@@ -357,7 +401,8 @@
   "address": "48400 Seminole Drive Cabazon CA 92230",
   "postal_code": "92230",
   "lat": 33.9289379,
-  "lon": -116.8118119
+  "lon": -116.8118119,
+  "oic": true
  },
  {
   "property_id": "DOLPHIN",
@@ -365,7 +410,8 @@
   "address": "11401 Northwest 12th Street, Miami FL 33172",
   "postal_code": "33172",
   "lat": 25.7887034,
-  "lon": -80.3811751
+  "lon": -80.3811751,
+  "oic": true
  },
  {
   "property_id": "DOVER",
@@ -373,7 +419,8 @@
   "address": "1365 North DuPont Highway Dover DE 19901",
   "postal_code": "19901",
   "lat": 39.1955008,
-  "lon": -75.5417396
+  "lon": -75.5417396,
+  "oic": false
  },
  {
   "property_id": "ELLENTON",
@@ -381,7 +428,8 @@
   "address": "5461 Factory Shops Boulevard Ellenton FL 34222",
   "postal_code": "34222",
   "lat": 27.535356,
-  "lon": -82.5075055
+  "lon": -82.5075055,
+  "oic": false
  },
  {
   "property_id": "EMPIRE",
@@ -389,7 +437,8 @@
   "address": "5000 Empire Mall Sioux Falls SD 57106",
   "postal_code": "57106",
   "lat": 43.5103141,
-  "lon": -96.7757826
+  "lon": -96.7757826,
+  "oic": false
  },
  {
   "property_id": "PENTAGONCITY",
@@ -397,7 +446,8 @@
   "address": "1100 South Hayes Street Arlington VA 22202",
   "postal_code": "22202",
   "lat": 38.8631596,
-  "lon": -77.0612117
+  "lon": -77.0612117,
+  "oic": true
  },
  {
   "property_id": "KEYSTONE",
@@ -405,7 +455,8 @@
   "address": "8702 Keystone Crossing Indianapolis IN 46240",
   "postal_code": "46240",
   "lat": 39.9146201,
-  "lon": -86.11124
+  "lon": -86.11124,
+  "oic": true
  },
  {
   "property_id": "FASHIONVAL",
@@ -413,7 +464,8 @@
   "address": "7007 Friars Road San Diego CA 92108",
   "postal_code": "92108",
   "lat": 32.7673742,
-  "lon": -117.1660784
+  "lon": -117.1660784,
+  "oic": true
  },
  {
   "property_id": "FIREWHEEL",
@@ -421,7 +473,8 @@
   "address": "245 Cedar Sage Drive Garland TX 75040",
   "postal_code": "75040",
   "lat": 32.9538891,
-  "lon": -96.6125861
+  "lon": -96.6125861,
+  "oic": false
  },
  {
   "property_id": "FLORDIAKEYS",
@@ -429,7 +482,8 @@
   "address": "250 East Palm Drive Florida City FL 33034",
   "postal_code": "33034",
   "lat": 25.4527615,
-  "lon": -80.4734658
+  "lon": -80.4734658,
+  "oic": false
  },
  {
   "property_id": "FLORIDAMALL",
@@ -437,7 +491,8 @@
   "address": "8001 South Orange Blossom Trail Orlando FL 32809",
   "postal_code": "32809",
   "lat": 28.4467242,
-  "lon": -81.3952717
+  "lon": -81.3952717,
+  "oic": true
  },
  {
   "property_id": "FOLSOM",
@@ -445,7 +500,8 @@
   "address": "13000 Folsom Boulevard Folsom CA 95630",
   "postal_code": "95630",
   "lat": 38.6440912,
-  "lon": -121.1866762
+  "lon": -121.1866762,
+  "oic": false
  },
  {
   "property_id": "GAFFNEY",
@@ -453,7 +509,8 @@
   "address": "1 Factory Shops Boulevard Gaffney SC 29341",
   "postal_code": "29341",
   "lat": 35.0819782,
-  "lon": -81.7121115
+  "lon": -81.7121115,
+  "oic": false
  },
  {
   "property_id": "GILROY",
@@ -461,7 +518,8 @@
   "address": "681 Leavesley Road Gilroy CA 95020",
   "postal_code": "95020",
   "lat": 37.0256162,
-  "lon": -121.5636695
+  "lon": -121.5636695,
+  "oic": false
  },
  {
   "property_id": "GLOUCESTER",
@@ -469,7 +527,8 @@
   "address": "100 Premium Outlets Drive Blackwood NJ 08012",
   "postal_code": "08012",
   "lat": 39.7830177,
-  "lon": -75.0526272
+  "lon": -75.0526272,
+  "oic": false
  },
  {
   "property_id": "GRANDPRAIRIE",
@@ -477,7 +536,8 @@
   "address": "2950 West Interstate 20 Grand Prairie TX 75052",
   "postal_code": "75052",
   "lat": 32.6768066,
-  "lon": -97.1324201
+  "lon": -97.1324201,
+  "oic": false
  },
  {
   "property_id": "GRAPEVINE",
@@ -485,7 +545,8 @@
   "address": "3000 Grapevine Mills Parkway Grapevine TX 76051",
   "postal_code": "76051",
   "lat": 32.9659075,
-  "lon": -97.0427868
+  "lon": -97.0427868,
+  "oic": true
  },
  {
   "property_id": "GREATLAKES",
@@ -493,7 +554,8 @@
   "address": "4000 Baldwin Road Auburn Hills MI 48326",
   "postal_code": "48326",
   "lat": 42.7027241,
-  "lon": -83.2994261
+  "lon": -83.2994261,
+  "oic": true
  },
  {
   "property_id": "GREATMALL",
@@ -501,7 +563,8 @@
   "address": "447 Great Mall Drive Milpitas CA 95035",
   "postal_code": "95035",
   "lat": 37.4160601,
-  "lon": -121.8991178
+  "lon": -121.8991178,
+  "oic": true
  },
  {
   "property_id": "GREENWOOD",
@@ -509,7 +572,8 @@
   "address": "1251 U.S. 31 North Greenwood IN 46142",
   "postal_code": "46142",
   "lat": 39.6330413,
-  "lon": -86.1235722
+  "lon": -86.1235722,
+  "oic": true
  },
  {
   "property_id": "GROVECITY",
@@ -517,7 +581,8 @@
   "address": "1911 Leesburg Grove City Road Grove City PA 16127",
   "postal_code": "16127",
   "lat": 41.1385211,
-  "lon": -80.1569006
+  "lon": -80.1569006,
+  "oic": false
  },
  {
   "property_id": "GULFPORT",
@@ -525,7 +590,8 @@
   "address": "10000 Factory Shop Blvd Gulfport MS 39503",
   "postal_code": "39503",
   "lat": 30.4295083,
-  "lon": -89.097543
+  "lon": -89.097543,
+  "oic": false
  },
  {
   "property_id": "GURNEEMILLS",
@@ -533,7 +599,8 @@
   "address": "6170 West Grand Avenue Gurnee IL 60031",
   "postal_code": "60031",
   "lat": 42.3899294,
-  "lon": -87.9593224
+  "lon": -87.9593224,
+  "oic": true
  },
  {
   "property_id": "HAGERSTOWN",
@@ -541,7 +608,8 @@
   "address": "495 Premium Outlets Boulevard Hagerstown MD 21740",
   "postal_code": "21740",
   "lat": 39.6070289,
-  "lon": -77.7346928
+  "lon": -77.7346928,
+  "oic": false
  },
  {
   "property_id": "HAMILTON",
@@ -549,7 +617,8 @@
   "address": "13901 Town Center Boulevard Noblesville IN 46060",
   "postal_code": "46060",
   "lat": 39.993168,
-  "lon": -85.9319718
+  "lon": -85.9319718,
+  "oic": false
  },
  {
   "property_id": "HAYWOOD",
@@ -557,7 +626,8 @@
   "address": "700 Haywood Road Greenville SC 29607",
   "postal_code": "29607",
   "lat": 34.8490186,
-  "lon": -82.3340927
+  "lon": -82.3340927,
+  "oic": true
  },
  {
   "property_id": "HOUSTONGAL",
@@ -565,7 +635,8 @@
   "address": "5085 Westheimer Houston TX 77056",
   "postal_code": "77056",
   "lat": 29.739343,
-  "lon": -95.4641184
+  "lon": -95.4641184,
+  "oic": true
  },
  {
   "property_id": "HOUSTONPO",
@@ -573,7 +644,8 @@
   "address": "29300 Hempstead Rd Cypress TX 77433",
   "postal_code": "77433",
   "lat": 29.9973454,
-  "lon": -95.756493
+  "lon": -95.756493,
+  "oic": false
  },
  {
   "property_id": "INDIANAPO",
@@ -581,7 +653,8 @@
   "address": "11622 Northeast Executive Drive Edinburgh IN 46124",
   "postal_code": "46124",
   "lat": 39.3106514,
-  "lon": -85.9602385
+  "lon": -85.9602385,
+  "oic": false
  },
  {
   "property_id": "INTLMARKET",
@@ -589,7 +662,8 @@
   "address": "2330 Kalakaua Avenue, Honolulu HI 96815",
   "postal_code": "96815",
   "lat": 21.2779875,
-  "lon": -157.826706
+  "lon": -157.826706,
+  "oic": false
  },
  {
   "property_id": "INTLPLAZA",
@@ -597,7 +671,8 @@
   "address": "2223 North West Shore Boulevard Tampa FL 33607",
   "postal_code": "33607",
   "lat": 27.9654551,
-  "lon": -82.5204017
+  "lon": -82.5204017,
+  "oic": true
  },
  {
   "property_id": "JACKSONPO",
@@ -605,7 +680,8 @@
   "address": "537 Monmouth Road Jackson NJ 08527",
   "postal_code": "08527",
   "lat": 40.163349,
-  "lon": -74.4176626
+  "lon": -74.4176626,
+  "oic": false
  },
  {
   "property_id": "JERSEYSHOREPO",
@@ -613,7 +689,8 @@
   "address": "1 Premium Outlets Boulevard Tinton Falls NJ 07753",
   "postal_code": "07753",
   "lat": 40.2257575,
-  "lon": -74.0934381
+  "lon": -74.0934381,
+  "oic": false
  },
  {
   "property_id": "JOHNSONCREEK",
@@ -621,7 +698,8 @@
   "address": "575 West Linmar Lane Johnson Creek WI 53038",
   "postal_code": "53038",
   "lat": 43.0926997,
-  "lon": -88.7631531
+  "lon": -88.7631531,
+  "oic": false
  },
  {
   "property_id": "KATYMILLS",
@@ -629,7 +707,8 @@
   "address": "5000 Katy Mills Circle Katy TX 77494",
   "postal_code": "77494",
   "lat": 29.7755219,
-  "lon": -95.8093454
+  "lon": -95.8093454,
+  "oic": true
  },
  {
   "property_id": "PRUSSIA",
@@ -637,7 +716,8 @@
   "address": "160 North Gulph Road King of Prussia PA 19406",
   "postal_code": "19406",
   "lat": 40.0881528,
-  "lon": -75.3944026
+  "lon": -75.3944026,
+  "oic": true
  },
  {
   "property_id": "KITTERY",
@@ -645,7 +725,8 @@
   "address": "375 US Route 1 Kittery ME 03904",
   "postal_code": "03904",
   "lat": 43.1176683,
-  "lon": -70.7280911
+  "lon": -70.7280911,
+  "oic": false
  },
  {
   "property_id": "LAPLAZA",
@@ -653,7 +734,8 @@
   "address": "2200 South 10th Street McAllen TX 78503",
   "postal_code": "78503",
   "lat": 26.1882845,
-  "lon": -98.235457
+  "lon": -98.235457,
+  "oic": true
  },
  {
   "property_id": "LAKELINE",
@@ -661,7 +743,8 @@
   "address": "11200 Lakeline Mall Drive Cedar Park TX 78613",
   "postal_code": "78613",
   "lat": 30.4700139,
-  "lon": -97.8072249
+  "lon": -97.8072249,
+  "oic": false
  },
  {
   "property_id": "LASAMERICAS",
@@ -669,7 +752,8 @@
   "address": "4211 Camino de la Plaza San Diego CA 92173",
   "postal_code": "92173",
   "lat": 32.5438151,
-  "lon": -117.0433296
+  "lon": -117.0433296,
+  "oic": true
  },
  {
   "property_id": "VEGASNORTHPO",
@@ -677,7 +761,8 @@
   "address": "875 South Grand Central Parkway Las Vegas NV 89106",
   "postal_code": "89106",
   "lat": 36.1632062,
-  "lon": -115.1587666
+  "lon": -115.1587666,
+  "oic": true
  },
  {
   "property_id": "VEGASSOUTHPO",
@@ -685,7 +770,8 @@
   "address": "7400 Las Vegas Boulevard South Las Vegas NV 89123",
   "postal_code": "89123",
   "lat": 36.0546119,
-  "lon": -115.1696012
+  "lon": -115.1696012,
+  "oic": true
  },
  {
   "property_id": "LEEPO",
@@ -693,7 +779,8 @@
   "address": "17 Premium Outlets Blvd Lee MA 01238",
   "postal_code": "01238",
   "lat": 42.2948021,
-  "lon": -73.2333056
+  "lon": -73.2333056,
+  "oic": false
  },
  {
   "property_id": "LEESBURG",
@@ -701,7 +788,8 @@
   "address": "241 Fort Evans Road Northeast Leesburg VA 20176",
   "postal_code": "20176",
   "lat": 39.1073788,
-  "lon": -77.5382065
+  "lon": -77.5382065,
+  "oic": false
  },
  {
   "property_id": "LEHIGHVAL",
@@ -709,7 +797,8 @@
   "address": "250 Lehigh Valley Mall Whitehall PA 18052",
   "postal_code": "18052",
   "lat": 40.6313411,
-  "lon": -75.4810719
+  "lon": -75.4810719,
+  "oic": true
  },
  {
   "property_id": "LENOX",
@@ -717,7 +806,8 @@
   "address": "3393 Peachtree Road Northeast Atlanta GA 30326",
   "postal_code": "30326",
   "lat": 33.8467259,
-  "lon": -84.3624199
+  "lon": -84.3624199,
+  "oic": true
  },
  {
   "property_id": "LIBERTYTREE",
@@ -725,7 +815,8 @@
   "address": "100 Independence Way Danvers MA 01923",
   "postal_code": "01923",
   "lat": 42.5528479,
-  "lon": -70.9401907
+  "lon": -70.9401907,
+  "oic": false
  },
  {
   "property_id": "LIGHTHOUSEPL",
@@ -733,7 +824,8 @@
   "address": "601 Wabash Street Michigan City IN 46360",
   "postal_code": "46360",
   "lat": 41.7154482,
-  "lon": -86.9050391
+  "lon": -86.9050391,
+  "oic": false
  },
  {
   "property_id": "ROCKINGHAM",
@@ -741,7 +833,8 @@
   "address": "99 Rockingham Park Boulevard Salem NH 03079",
   "postal_code": "03079",
   "lat": 42.767915,
-  "lon": -71.2313648
+  "lon": -71.2313648,
+  "oic": true
  },
  {
   "property_id": "MOFGEORGIA",
@@ -749,7 +842,8 @@
   "address": "3333 Buford Drive Buford GA 30519",
   "postal_code": "30519",
   "lat": 34.0662711,
-  "lon": -83.9842746
+  "lon": -83.9842746,
+  "oic": true
  },
  {
   "property_id": "MCCAINMALL",
@@ -757,7 +851,8 @@
   "address": "3929 McCain Boulevard N. Little Rock AR 72116",
   "postal_code": "72116",
   "lat": 34.7913644,
-  "lon": -92.2282605
+  "lon": -92.2282605,
+  "oic": false
  },
  {
   "property_id": "MEADOWOOD",
@@ -765,7 +860,8 @@
   "address": "5000 #1 Meadowood Mall Circle Reno NV 89502",
   "postal_code": "89502",
   "lat": 39.4715327,
-  "lon": -119.7830083
+  "lon": -119.7830083,
+  "oic": true
  },
  {
   "property_id": "MENLOPARK",
@@ -773,7 +869,8 @@
   "address": "100 Menlo Park Edison NJ 08837",
   "postal_code": "08837",
   "lat": 40.5478256,
-  "lon": -74.3354653
+  "lon": -74.3354653,
+  "oic": true
  },
  {
   "property_id": "MERRIMACKPO",
@@ -781,7 +878,8 @@
   "address": "80 Premium Outlets Boulevard Merrimack NH 03054",
   "postal_code": "03054",
   "lat": 42.8264314,
-  "lon": -71.4992254
+  "lon": -71.4992254,
+  "oic": false
  },
  {
   "property_id": "MIAMIINTL",
@@ -789,7 +887,8 @@
   "address": "1455 Northwest 107th Avenue Miami FL 33172",
   "postal_code": "33172",
   "lat": 25.7872507,
-  "lon": -80.364821
+  "lon": -80.364821,
+  "oic": false
  },
  {
   "property_id": "MIDLAND",
@@ -797,7 +896,8 @@
   "address": "4511 North Midkiff Drive Midland TX 79705",
   "postal_code": "79705",
   "lat": 32.0301564,
-  "lon": -102.1316508
+  "lon": -102.1316508,
+  "oic": false
  },
  {
   "property_id": "MILLERHILL",
@@ -805,7 +905,8 @@
   "address": "1600 Miller Trunk Highway Duluth MN 55811",
   "postal_code": "55811",
   "lat": 46.8055121,
-  "lon": -92.1586125
+  "lon": -92.1586125,
+  "oic": false
  },
  {
   "property_id": "NAPAPO",
@@ -813,7 +914,8 @@
   "address": "629 Factory Stores Drive Napa CA 94558",
   "postal_code": "94558",
   "lat": 38.2948329,
-  "lon": -122.3027269
+  "lon": -122.3027269,
+  "oic": false
  },
  {
   "property_id": "NEWPORTCTR",
@@ -821,7 +923,8 @@
   "address": "30 Mall Drive West Jersey City NJ 07310",
   "postal_code": "07310",
   "lat": 40.7268406,
-  "lon": -74.0379931
+  "lon": -74.0379931,
+  "oic": true
  },
  {
   "property_id": "NORFOLKPO",
@@ -829,7 +932,8 @@
   "address": "1600 Premium Outlets Boulevard Norfolk VA 23502",
   "postal_code": "23502",
   "lat": 36.8821267,
-  "lon": -76.200199
+  "lon": -76.200199,
+  "oic": false
  },
  {
   "property_id": "NORTHBEND",
@@ -837,7 +941,8 @@
   "address": "461 South Fork Avenue Southwest North Bend WA 98045",
   "postal_code": "98045",
   "lat": 47.4919834,
-  "lon": -121.794823
+  "lon": -121.794823,
+  "oic": false
  },
  {
   "property_id": "NORTHEASTMALL",
@@ -845,7 +950,8 @@
   "address": "1101 Melbourne Street Hurst TX 76053",
   "postal_code": "76053",
   "lat": 32.8307635,
-  "lon": -97.1994333
+  "lon": -97.1994333,
+  "oic": true
  },
  {
   "property_id": "NORTHGEORGIA",
@@ -853,7 +959,8 @@
   "address": "800 Highway 400 South Dawsonville GA 30534",
   "postal_code": "30534",
   "lat": 34.3567585,
-  "lon": -84.0485427
+  "lon": -84.0485427,
+  "oic": false
  },
  {
   "property_id": "NORTHGATE",
@@ -861,7 +968,8 @@
   "address": "401 Northeast Northgate Way Seattle WA 98125",
   "postal_code": "98125",
   "lat": 47.7080446,
-  "lon": -122.3263688
+  "lon": -122.3263688,
+  "oic": true
  },
  {
   "property_id": "NORTHSHORE",
@@ -869,7 +977,8 @@
   "address": "210 Andover Street Peabody MA 01960",
   "postal_code": "01960",
   "lat": 42.5414196,
-  "lon": -70.9445901
+  "lon": -70.9445901,
+  "oic": false
  },
  {
   "property_id": "OCEANCOUNTY",
@@ -877,7 +986,8 @@
   "address": "1201 Hooper Avenue Toms River NJ 08753",
   "postal_code": "08753",
   "lat": 39.9798255,
-  "lon": -74.1817029
+  "lon": -74.1817029,
+  "oic": false
  },
  {
   "property_id": "ONTARIOMILLS",
@@ -885,7 +995,8 @@
   "address": "One Mills Circle Ontario CA 91764",
   "postal_code": "91764",
   "lat": 34.0708434,
-  "lon": -117.5519097
+  "lon": -117.5519097,
+  "oic": true
  },
  {
   "property_id": "OPRYMILLS",
@@ -893,7 +1004,8 @@
   "address": "433 Opry Mills Drive Nashville TN 37214",
   "postal_code": "37214",
   "lat": 36.2029647,
-  "lon": -86.6922661
+  "lon": -86.6922661,
+  "oic": true
  },
  {
   "property_id": "ORLANDSQR",
@@ -901,7 +1013,8 @@
   "address": "288 Orland Square Orland Park IL 60462",
   "postal_code": "60462",
   "lat": 41.6183779,
-  "lon": -87.8525967
+  "lon": -87.8525967,
+  "oic": true
  },
  {
   "property_id": "ORLANDOINTLPO",
@@ -909,7 +1022,8 @@
   "address": "4951 International Drive Orlando FL 32819",
   "postal_code": "32819",
   "lat": 28.4755669,
-  "lon": -81.4509587
+  "lon": -81.4509587,
+  "oic": true
  },
  {
   "property_id": "ORLANDOOUTLETMKT",
@@ -917,7 +1031,8 @@
   "address": "4951 International Drive Orlando FL 32819",
   "postal_code": "32819",
   "lat": 28.4755669,
-  "lon": -81.4509587
+  "lon": -81.4509587,
+  "oic": false
  },
  {
   "property_id": "ORLANDOVINELAND",
@@ -925,7 +1040,8 @@
   "address": "8200 Vineland Avenue Orlando FL 32821",
   "postal_code": "32821",
   "lat": 28.3879501,
-  "lon": -81.4904099
+  "lon": -81.4904099,
+  "oic": true
  },
  {
   "property_id": "OSAGE",
@@ -933,7 +1049,8 @@
   "address": "4540 Osage Beach Parkway Osage Beach MO 65065",
   "postal_code": "65065",
   "lat": 38.1456736,
-  "lon": -92.6251495
+  "lon": -92.6251495,
+  "oic": false
  },
  {
   "property_id": "OXFORD",
@@ -941,7 +1058,8 @@
   "address": "2300 East Lincoln Highway Langhorne PA 19047",
   "postal_code": "19047",
   "lat": 40.1836378,
-  "lon": -74.8810481
+  "lon": -74.8810481,
+  "oic": true
  },
  {
   "property_id": "PALMBEACH",
@@ -949,7 +1067,8 @@
   "address": "3101 PGA Boulevard Palm Beach Gardens FL 33410",
   "postal_code": "33410",
   "lat": 26.8479904,
-  "lon": -80.0887611
+  "lon": -80.0887611,
+  "oic": false
  },
  {
   "property_id": "PENNSQUARE",
@@ -957,7 +1076,8 @@
   "address": "1901 Northwest Expressway Oklahoma City OK 73118",
   "postal_code": "73118",
   "lat": 35.5248002,
-  "lon": -97.5444491
+  "lon": -97.5444491,
+  "oic": true
  },
  {
   "property_id": "PETALUMA",
@@ -965,7 +1085,8 @@
   "address": "2200 Petaluma Boulevard North Petaluma CA 94952",
   "postal_code": "94952",
   "lat": 38.2567191,
-  "lon": -122.6493498
+  "lon": -122.6493498,
+  "oic": false
  },
  {
   "property_id": "PHEASANTLANE",
@@ -973,7 +1094,8 @@
   "address": "310 Daniel Webster Highway Nashua NH 03060",
   "postal_code": "03060",
   "lat": 42.7010418,
-  "lon": -71.4369572
+  "lon": -71.4369572,
+  "oic": true
  },
  {
   "property_id": "PHILADELPHIA",
@@ -981,7 +1103,8 @@
   "address": "18 West Lightcap Road Limerick PA 19464",
   "postal_code": "19464",
   "lat": 40.2372552,
-  "lon": -75.5715575
+  "lon": -75.5715575,
+  "oic": false
  },
  {
   "property_id": "PHIPPSPLAZA",
@@ -989,7 +1112,8 @@
   "address": "3500 Peachtree Road Northeast Atlanta GA 30326",
   "postal_code": "30326",
   "lat": 33.8528035,
-  "lon": -84.3622556
+  "lon": -84.3622556,
+  "oic": true
  },
  {
   "property_id": "PHOENIXPO",
@@ -997,7 +1121,8 @@
   "address": "4976 Premium Outlets Way Chandler AZ 85226",
   "postal_code": "85226",
   "lat": 33.2869949,
-  "lon": -111.9735812
+  "lon": -111.9735812,
+  "oic": false
  },
  {
   "property_id": "PIERPARK",
@@ -1005,7 +1130,8 @@
   "address": "600 Pier Park Drive Panama City Beach FL 32413",
   "postal_code": "32413",
   "lat": 30.2180412,
-  "lon": -85.8744486
+  "lon": -85.8744486,
+  "oic": false
  },
  {
   "property_id": "PISMOBEACH",
@@ -1013,7 +1139,8 @@
   "address": "333 Five Cities Drive Pismo Beach CA 93449",
   "postal_code": "93448",
   "lat": 35.136647,
-  "lon": -120.628705
+  "lon": -120.628705,
+  "oic": false
  },
  {
   "property_id": "PLEASANTPRAIRIE",
@@ -1021,7 +1148,8 @@
   "address": "11211 120th Avenue Pleasant Prairie WI 53158",
   "postal_code": "53158",
   "lat": 42.5180341,
-  "lon": -87.9488737
+  "lon": -87.9488737,
+  "oic": false
  },
  {
   "property_id": "POTOMACMILLS",
@@ -1029,7 +1157,8 @@
   "address": "2700 Potomac Mills Circle Woodbridge VA 22192",
   "postal_code": "22192",
   "lat": 38.6431929,
-  "lon": -77.2965242
+  "lon": -77.2965242,
+  "oic": true
  },
  {
   "property_id": "PRIENLAKE",
@@ -1037,7 +1166,8 @@
   "address": "496 West Prien Lake Road Lake Charles LA 70601",
   "postal_code": "70601",
   "lat": 30.2005895,
-  "lon": -93.2253714
+  "lon": -93.2253714,
+  "oic": true
  },
  {
   "property_id": "QUAKERBRIDGE",
@@ -1045,7 +1175,8 @@
   "address": "150 Quaker Bridge Mall Lawrenceville NJ 08648",
   "postal_code": "08648",
   "lat": 40.2908179,
-  "lon": -74.6813247
+  "lon": -74.6813247,
+  "oic": true
  },
  {
   "property_id": "QUEENSTOWN",
@@ -1053,7 +1184,8 @@
   "address": "441 Outlet Center Drive Queenstown MD 21658",
   "postal_code": "21658",
   "lat": 38.9839793,
-  "lon": -76.1587646
+  "lon": -76.1587646,
+  "oic": false
  },
  {
   "property_id": "RIOGRANDEPO",
@@ -1061,7 +1193,8 @@
   "address": "5001 E Expressway 83, Mercedes TX 78570, USA",
   "postal_code": "78570",
   "lat": 26.1621435,
-  "lon": -97.8880775
+  "lon": -97.8880775,
+  "oic": false
  },
  {
   "property_id": "ROCKAWAY",
@@ -1069,7 +1202,8 @@
   "address": "301 Mount Hope Avenue Rockaway NJ 07866",
   "postal_code": "07866",
   "lat": 40.9071951,
-  "lon": -74.5540177
+  "lon": -74.5540177,
+  "oic": true
  },
  {
   "property_id": "ROOSEVELT",
@@ -1077,7 +1211,8 @@
   "address": "630 Old Country Road Garden City NY 11530",
   "postal_code": "11530",
   "lat": 40.7383205,
-  "lon": -73.61396
+  "lon": -73.61396,
+  "oic": true
  },
  {
   "property_id": "ROSSPARK",
@@ -1085,7 +1220,8 @@
   "address": "1000 Ross Park Mall Drive Pittsburgh PA 15237",
   "postal_code": "15237",
   "lat": 40.5438668,
-  "lon": -80.0074045
+  "lon": -80.0074045,
+  "oic": true
  },
  {
   "property_id": "ROUNDROCK",
@@ -1093,7 +1229,8 @@
   "address": "4401 North IH-35 Round Rock TX 78664",
   "postal_code": "78664",
   "lat": 30.5635656,
-  "lon": -97.6902118
+  "lon": -97.6902118,
+  "oic": false
  },
  {
   "property_id": "SANFRANPO",
@@ -1101,7 +1238,8 @@
   "address": "2774 Paragon Outlets Drive Livermore CA 94551",
   "postal_code": "94551",
   "lat": 37.6983733,
-  "lon": -121.8403487
+  "lon": -121.8403487,
+  "oic": true
  },
  {
   "property_id": "SANMARCOS",
@@ -1109,7 +1247,8 @@
   "address": "3939 IH-35 South San Marcos TX 78666",
   "postal_code": "78666",
   "lat": 29.8287208,
-  "lon": -97.9803606
+  "lon": -97.9803606,
+  "oic": false
  },
  {
   "property_id": "SANTAROSA",
@@ -1117,7 +1256,8 @@
   "address": "1071 Santa Rosa Plaza Santa Rosa CA 95401",
   "postal_code": "95401",
   "lat": 38.4389113,
-  "lon": -122.7163728
+  "lon": -122.7163728,
+  "oic": true
  },
  {
   "property_id": "SAWGRASS",
@@ -1125,7 +1265,8 @@
   "address": "12801 West Sunrise Boulevard Sunrise FL 33323",
   "postal_code": "33323",
   "lat": 26.1518472,
-  "lon": -80.3218487
+  "lon": -80.3218487,
+  "oic": true
  },
  {
   "property_id": "SEATTLEPO",
@@ -1133,7 +1274,8 @@
   "address": "10600 Quil Ceda Boulevard Tulalip WA 98271",
   "postal_code": "98271",
   "lat": 48.0927799,
-  "lon": -122.1890947
+  "lon": -122.1890947,
+  "oic": false
  },
  {
   "property_id": "SILVERSANDS",
@@ -1141,7 +1283,8 @@
   "address": "10562 Emerald Coast Parkway Destin FL 32550",
   "postal_code": "32550",
   "lat": 30.380673,
-  "lon": -86.3537549
+  "lon": -86.3537549,
+  "oic": false
  },
  {
   "property_id": "SIMONTOWER",
@@ -1149,7 +1292,8 @@
   "address": "225 West Washington Street Indianapolis IN 46204",
   "postal_code": "46204",
   "lat": 39.7667659,
-  "lon": -86.1623792
+  "lon": -86.1623792,
+  "oic": false
  },
  {
   "property_id": "SMITHHAVEN",
@@ -1157,7 +1301,8 @@
   "address": "313 Smith Haven Mall Lake Grove NY 11755",
   "postal_code": "11755",
   "lat": 40.863242,
-  "lon": -73.1294434
+  "lon": -73.1294434,
+  "oic": true
  },
  {
   "property_id": "SOUTHHILLSV",
@@ -1165,7 +1310,8 @@
   "address": "301 South Hills Village Pittsburgh PA 15241",
   "postal_code": "15241",
   "lat": 40.3423053,
-  "lon": -80.0552469
+  "lon": -80.0552469,
+  "oic": true
  },
  {
   "property_id": "SSHOREPLAZA",
@@ -1173,7 +1319,8 @@
   "address": "250 Granite Street Braintree MA 02184",
   "postal_code": "02184",
   "lat": 42.221735,
-  "lon": -71.0228696
+  "lon": -71.0228696,
+  "oic": true
  },
  {
   "property_id": "SOUTHDALE",
@@ -1181,7 +1328,8 @@
   "address": "10 Southdale Center Edina MN 55435",
   "postal_code": "55435",
   "lat": 44.8808535,
-  "lon": -93.3253561
+  "lon": -93.3253561,
+  "oic": true
  },
  {
   "property_id": "SOUTHPARK",
@@ -1189,7 +1337,8 @@
   "address": "4400 Sharon Road Charlotte NC 28211",
   "postal_code": "28211",
   "lat": 35.1518906,
-  "lon": -80.8304507
+  "lon": -80.8304507,
+  "oic": true
  },
  {
   "property_id": "STAUGUSTINE",
@@ -1197,7 +1346,8 @@
   "address": "2700 State Road 16 St. Augustine FL 32092",
   "postal_code": "32092",
   "lat": 29.9219929,
-  "lon": -81.4155071
+  "lon": -81.4155071,
+  "oic": false
  },
  {
   "property_id": "STCHARLES",
@@ -1205,7 +1355,8 @@
   "address": "11110 Mall Circle Waldorf MD 20603",
   "postal_code": "20603",
   "lat": 38.6169391,
-  "lon": -76.9264939
+  "lon": -76.9264939,
+  "oic": false
  },
  {
   "property_id": "STJOHNS",
@@ -1213,7 +1364,8 @@
   "address": "4663 River City Drive Jacksonville FL 32246",
   "postal_code": "32246",
   "lat": 30.2568578,
-  "lon": -81.5255258
+  "lon": -81.5255258,
+  "oic": true
  },
  {
   "property_id": "STLOUISPO",
@@ -1221,7 +1373,8 @@
   "address": "18521 Outlet Boulevard Chesterfield MO 63005",
   "postal_code": "63005",
   "lat": 38.6778043,
-  "lon": -90.6622552
+  "lon": -90.6622552,
+  "oic": false
  },
  {
   "property_id": "STANFORDSC",
@@ -1229,7 +1382,8 @@
   "address": "660 Stanford Shopping Center Palo Alto CA 94304",
   "postal_code": "94304",
   "lat": 37.4434982,
-  "lon": -122.1709939
+  "lon": -122.1709939,
+  "oic": true
  },
  {
   "property_id": "STONERIDGE",
@@ -1237,7 +1391,8 @@
   "address": "One Stoneridge Mall Pleasanton CA 94588",
   "postal_code": "94588",
   "lat": 37.6933973,
-  "lon": -121.9259906
+  "lon": -121.9259906,
+  "oic": true
  },
  {
   "property_id": "SUGARLOAF",
@@ -1245,7 +1400,8 @@
   "address": "5900 Sugarloaf Parkway Lawrenceville GA 30043",
   "postal_code": "30043",
   "lat": 33.9811228,
-  "lon": -84.0795021
+  "lon": -84.0795021,
+  "oic": true
  },
  {
   "property_id": "SUMMITMALL",
@@ -1253,7 +1409,8 @@
   "address": "3265 West Market Street Akron OH 44333",
   "postal_code": "44333",
   "lat": 41.1326522,
-  "lon": -81.6184499
+  "lon": -81.6184499,
+  "oic": true
  },
  {
   "property_id": "SUNVALLEY",
@@ -1261,7 +1418,8 @@
   "address": "1 Sun Valley Mall, Concord CA 94520",
   "postal_code": "94520",
   "lat": 37.9666424,
-  "lon": -122.0595968
+  "lon": -122.0595968,
+  "oic": false
  },
  {
   "property_id": "TACOMAMALL",
@@ -1269,7 +1427,8 @@
   "address": "4502 South Steele Street Tacoma WA 98409",
   "postal_code": "98409",
   "lat": 47.2161436,
-  "lon": -122.4682104
+  "lon": -122.4682104,
+  "oic": true
  },
  {
   "property_id": "TAMPAPO",
@@ -1277,7 +1436,8 @@
   "address": "2300 Grand Cypress Dr Lutz FL 33559 USA",
   "postal_code": "33559",
   "lat": 28.1895863,
-  "lon": -82.3913739
+  "lon": -82.3913739,
+  "oic": false
  },
  {
   "property_id": "AVENUES",
@@ -1285,7 +1445,8 @@
   "address": "10300 Southside Boulevard Jacksonville FL 32256",
   "postal_code": "32256",
   "lat": 30.1845565,
-  "lon": -81.5539865
+  "lon": -81.5539865,
+  "oic": false
  },
  {
   "property_id": "THECROSSINGS",
@@ -1293,7 +1454,8 @@
   "address": "1000 Premium Outlets Dr Tannersville PA 18372",
   "postal_code": "18372",
   "lat": 41.0475603,
-  "lon": -75.3127018
+  "lon": -75.3127018,
+  "oic": false
  },
  {
   "property_id": "THEDOMAIN",
@@ -1301,7 +1463,8 @@
   "address": "11410 Century Oaks Terrace Austin TX 78758",
   "postal_code": "78758",
   "lat": 30.4016949,
-  "lon": -97.7264876
+  "lon": -97.7264876,
+  "oic": true
  },
  {
   "property_id": "THEFALLS",
@@ -1309,7 +1472,8 @@
   "address": "8888 SW 136 St Miami FL 33176",
   "postal_code": "33176",
   "lat": 25.6459172,
-  "lon": -80.3376889
+  "lon": -80.3376889,
+  "oic": true
  },
  {
   "property_id": "SHOPSATCAESARS",
@@ -1317,7 +1481,8 @@
   "address": "3500 Las Vegas Boulevard S Las Vegas NV 89109",
   "postal_code": "89109",
   "lat": 36.1174528,
-  "lon": -115.1766881
+  "lon": -115.1766881,
+  "oic": true
  },
  {
   "property_id": "GARDENSONELPASO",
@@ -1325,7 +1490,8 @@
   "address": "73545 El Paseo, Palm Desert, CA 92260",
   "postal_code": "92260",
   "lat": 33.7194358,
-  "lon": -116.3813019
+  "lon": -116.3813019,
+  "oic": false
  },
  {
   "property_id": "GREENHILLS",
@@ -1333,7 +1499,8 @@
   "address": "2126 Abbott Martin Road, Nashville, TN 37215",
   "postal_code": "37215",
   "lat": 36.1076459,
-  "lon": -86.8163855
+  "lon": -86.8163855,
+  "oic": false
  },
  {
   "property_id": "MALLATMILLENIA",
@@ -1341,7 +1508,8 @@
   "address": "4200 Conroy Road, Orlando, FL 32839",
   "postal_code": "32839",
   "lat": 28.4858595,
-  "lon": -81.4320188
+  "lon": -81.4320188,
+  "oic": false
  },
  {
   "property_id": "SHORTHILLS",
@@ -1349,7 +1517,8 @@
   "address": "1200 Morris Turnpike Short Hills NJ 07078",
   "postal_code": "07078",
   "lat": 40.7408743,
-  "lon": -74.3642457
+  "lon": -74.3642457,
+  "oic": true
  },
  {
   "property_id": "UNIVERSITYTOWNCENTER",
@@ -1357,7 +1526,8 @@
   "address": "140 University Town Center Drive Sarasota FL 34243",
   "postal_code": "34243",
   "lat": 27.3861364,
-  "lon": -82.4519187
+  "lon": -82.4519187,
+  "oic": true
  },
  {
   "property_id": "MOFNEWHAMPSHIRE",
@@ -1365,7 +1535,8 @@
   "address": "1500 South Willow Street Manchester NH 03103",
   "postal_code": "03103",
   "lat": 42.9554768,
-  "lon": -71.4325338
+  "lon": -71.4325338,
+  "oic": true
  },
  {
   "property_id": "JERSEYGARDENS",
@@ -1373,7 +1544,8 @@
   "address": "651 Kapkowski Road Elizabeth NJ 07201",
   "postal_code": "07201",
   "lat": 40.6599534,
-  "lon": -74.1710692
+  "lon": -74.1710692,
+  "oic": true
  },
  {
   "property_id": "OUTLETSATORANGE",
@@ -1381,7 +1553,8 @@
   "address": "20 City Boulevard West Orange CA 92868",
   "postal_code": "92868",
   "lat": 33.7826672,
-  "lon": -117.8929285
+  "lon": -117.8929285,
+  "oic": true
  },
  {
   "property_id": "CHESTNUTHILL",
@@ -1389,7 +1562,8 @@
   "address": "199 Boylston Street Chestnut Hill MA 02467",
   "postal_code": "02467",
   "lat": 42.3215125,
-  "lon": -71.1756718
+  "lon": -71.1756718,
+  "oic": true
  },
  {
   "property_id": "CLEARFORK",
@@ -1397,7 +1571,8 @@
   "address": "5188 Monahans Avenue Fort Worth TX 76109",
   "postal_code": "76109",
   "lat": 32.7101703,
-  "lon": -97.4005879
+  "lon": -97.4005879,
+  "oic": true
  },
  {
   "property_id": "SHOPSCRYSTALS",
@@ -1405,7 +1580,8 @@
   "address": "3720 South Las Vegas Boulevard Las Vegas NV 89158",
   "postal_code": "89158",
   "lat": 36.1083142,
-  "lon": -115.1740911
+  "lon": -115.1740911,
+  "oic": true
  },
  {
   "property_id": "MISSIONVIEJO",
@@ -1413,7 +1589,8 @@
   "address": "555 The Shops at Mission Viejo Mission Viejo CA 92691",
   "postal_code": "92691",
   "lat": 33.5587351,
-  "lon": -117.6691519
+  "lon": -117.6691519,
+  "oic": true
  },
  {
   "property_id": "RIVERSIDE",
@@ -1421,7 +1598,8 @@
   "address": "One Riverside Square Hackensack NJ 07601",
   "postal_code": "07601",
   "lat": 40.905811,
-  "lon": -74.0317063
+  "lon": -74.0317063,
+  "oic": true
  },
  {
   "property_id": "WESTCHESTER",
@@ -1429,7 +1607,8 @@
   "address": "125 Westchester Avenue White Plains NY 10601",
   "postal_code": "10601",
   "lat": 41.0312752,
-  "lon": -73.7591855
+  "lon": -73.7591855,
+  "oic": true
  },
  {
   "property_id": "TIPPECANOEMALL",
@@ -1437,7 +1616,8 @@
   "address": "2415 Sagamore Parkway South Lafayette IN 47905",
   "postal_code": "47905",
   "lat": 40.3915437,
-  "lon": -86.850402
+  "lon": -86.850402,
+  "oic": false
  },
  {
   "property_id": "TOWNBOCARATON",
@@ -1445,7 +1625,8 @@
   "address": "6000 Glades Road Boca Raton FL 33431",
   "postal_code": "33431",
   "lat": 26.364967,
-  "lon": -80.1325963
+  "lon": -80.1325963,
+  "oic": true
  },
  {
   "property_id": "TOWNEEAST",
@@ -1453,7 +1634,8 @@
   "address": "7700 East Kellogg Wichita KS 67207",
   "postal_code": "67207",
   "lat": 37.6826997,
-  "lon": -97.2474183
+  "lon": -97.2474183,
+  "oic": true
  },
  {
   "property_id": "VEGASCONVENTION",
@@ -1461,7 +1643,8 @@
   "address": "3150 Paradise Rd Las Vegas NV 89109, USA",
   "postal_code": "89109",
   "lat": 36.1320181,
-  "lon": -115.1520561
+  "lon": -115.1520561,
+  "oic": false
  },
  {
   "property_id": "ENCOREWYNNVEGAS",
@@ -1469,7 +1652,8 @@
   "address": "3121 S Las Vegas Blvd Las Vegas NV 89109, USA",
   "postal_code": "89109",
   "lat": 36.1298784,
-  "lon": -115.1651087
+  "lon": -115.1651087,
+  "oic": false
  },
  {
   "property_id": "TREASURECOAST",
@@ -1477,7 +1661,8 @@
   "address": "3174 Northwest Federal Highway Jensen Beach FL 34957",
   "postal_code": "34957",
   "lat": 27.2419855,
-  "lon": -80.2750113
+  "lon": -80.2750113,
+  "oic": false
  },
  {
   "property_id": "TUSCONPO",
@@ -1485,7 +1670,8 @@
   "address": "6401 West Marana Center Blvd. Tucson AZ 85742",
   "postal_code": "85742",
   "lat": 32.3763729,
-  "lon": -111.1031622
+  "lon": -111.1031622,
+  "oic": false
  },
  {
   "property_id": "TWINCITIESPO",
@@ -1493,7 +1679,8 @@
   "address": "3965 Eagan Outlets Parkway Eagan MN 55122",
   "postal_code": "55122",
   "lat": 44.8159745,
-  "lon": -93.2154391
+  "lon": -93.2154391,
+  "oic": false
  },
  {
   "property_id": "TYRONE",
@@ -1501,7 +1688,8 @@
   "address": "6901 Tyrone Square St. Petersburg FL 33710",
   "postal_code": "33710",
   "lat": 27.7937118,
-  "lon": -82.7331687
+  "lon": -82.7331687,
+  "oic": false
  },
  {
   "property_id": "UNIVPARKMALL",
@@ -1509,7 +1697,8 @@
   "address": "6501 North Grape Road Mishawaka IN 46545",
   "postal_code": "46545",
   "lat": 41.719128,
-  "lon": -86.1901146
+  "lon": -86.1901146,
+  "oic": true
  },
  {
   "property_id": "UNIVPARKVILLAGE",
@@ -1517,7 +1706,8 @@
   "address": "1612 South University Drive Fort Worth TX 76107",
   "postal_code": "76107",
   "lat": 32.7287633,
-  "lon": -97.3630507
+  "lon": -97.3630507,
+  "oic": true
  },
  {
   "property_id": "VACAVILLE",
@@ -1525,7 +1715,8 @@
   "address": "321 Nut Tree Road Vacaville CA 95687",
   "postal_code": "95687",
   "lat": 38.3668064,
-  "lon": -121.9573643
+  "lon": -121.9573643,
+  "oic": false
  },
  {
   "property_id": "WAIKELE",
@@ -1533,7 +1724,8 @@
   "address": "94-790 Lumiaina Street Waipahu HI 96797",
   "postal_code": "96797",
   "lat": 21.402128,
-  "lon": -158.0067933
+  "lon": -158.0067933,
+  "oic": false
  },
  {
   "property_id": "WALTWHITMAN",
@@ -1541,7 +1733,8 @@
   "address": "160 Walt Whitman Road Huntington Station NY 11746",
   "postal_code": "11746",
   "lat": 40.8202417,
-  "lon": -73.4093651
+  "lon": -73.4093651,
+  "oic": true
  },
  {
   "property_id": "WATERLOOPO",
@@ -1549,7 +1742,8 @@
   "address": "655 Route 318 Waterloo NY 13165",
   "postal_code": "13165",
   "lat": 42.9555461,
-  "lon": -76.921395
+  "lon": -76.921395,
+  "oic": false
  },
  {
   "property_id": "WATERSIDESHOPS",
@@ -1557,7 +1751,8 @@
   "address": "5415 Tamiami Trl North Naples FL 34108",
   "postal_code": "34108",
   "lat": 26.2137831,
-  "lon": -81.8026186
+  "lon": -81.8026186,
+  "oic": false
  },
  {
   "property_id": "WESTTOWN",
@@ -1565,7 +1760,8 @@
   "address": "7600 Kingston Pike Knoxville TN 37919",
   "postal_code": "37919",
   "lat": 35.9244853,
-  "lon": -84.0383972
+  "lon": -84.0383972,
+  "oic": true
  },
  {
   "property_id": "WESTFARMS",
@@ -1573,7 +1769,8 @@
   "address": "1500 New Britain Avenue West Hartford CT 06110",
   "postal_code": "06110",
   "lat": 41.7241034,
-  "lon": -72.7621046
+  "lon": -72.7621046,
+  "oic": false
  },
  {
   "property_id": "WHITEOAKS",
@@ -1581,7 +1778,8 @@
   "address": "2501 Wabash Avenue Springfield IL 62704",
   "postal_code": "62704",
   "lat": 39.7674788,
-  "lon": -89.7035535
+  "lon": -89.7035535,
+  "oic": false
  },
  {
   "property_id": "WILLIAMSBURGPO",
@@ -1589,7 +1787,8 @@
   "address": "5715-62A Richmond Road Williamsburg VA 23188",
   "postal_code": "23188",
   "lat": 37.2854381,
-  "lon": -76.722488
+  "lon": -76.722488,
+  "oic": false
  },
  {
   "property_id": "WOLFCHASE",
@@ -1597,7 +1796,8 @@
   "address": "2760 North Germantown Parkway Memphis TN 38133",
   "postal_code": "38133",
   "lat": 35.200892,
-  "lon": -89.7877063
+  "lon": -89.7877063,
+  "oic": true
  },
  {
   "property_id": "WOODBURNPO",
@@ -1605,7 +1805,8 @@
   "address": "1001 Arney Road Woodburn OR 97071",
   "postal_code": "97071",
   "lat": 45.1561405,
-  "lon": -122.878519
+  "lon": -122.878519,
+  "oic": false
  },
  {
   "property_id": "WOODBURY",
@@ -1613,7 +1814,8 @@
   "address": "498 Red Apple Court Central Valley NY 10917",
   "postal_code": "10917",
   "lat": 41.3162964,
-  "lon": -74.1257144
+  "lon": -74.1257144,
+  "oic": true
  },
  {
   "property_id": "WOODFIELDM",
@@ -1621,7 +1823,8 @@
   "address": "5 Woodfield Mall Schaumburg IL 60173",
   "postal_code": "60173",
   "lat": 42.0457591,
-  "lon": -88.0373778
+  "lon": -88.0373778,
+  "oic": true
  },
  {
   "property_id": "WOODLANDHILLS",
@@ -1629,7 +1832,8 @@
   "address": "7021 South Memorial Drive Tulsa OK 74133",
   "postal_code": "74133",
   "lat": 36.0637737,
-  "lon": -95.8818853
+  "lon": -95.8818853,
+  "oic": true
  },
  {
   "property_id": "WRENTHAMVIL",
@@ -1637,7 +1841,8 @@
   "address": "One Premium Outlets Boulevard Wrentham MA 02093",
   "postal_code": "02093",
   "lat": 42.0380222,
-  "lon": -71.3494019
+  "lon": -71.3494019,
+  "oic": true
  },
  {
   "property_id": "PLAZACAROLINA",
@@ -1645,7 +1850,8 @@
   "address": "Avenida Jes\u00fas M. Fragoso Carolina PR 00983",
   "postal_code": "00983",
   "lat": 18.393047,
-  "lon": -65.975049
+  "lon": -65.975049,
+  "oic": true
  },
  {
   "property_id": "MALLSANJUAN",
@@ -1653,7 +1859,8 @@
   "address": "1000 Mall of San Juan Blvd San Juan, Puerto Rico",
   "postal_code": "",
   "lat": 18.412516,
-  "lon": -66.026496
+  "lon": -66.026496,
+  "oic": false
  },
  {
   "property_id": "PRPO",
@@ -1661,7 +1868,8 @@
   "address": "1 Premium Outlets Blvd Barceloneta PR 00617",
   "postal_code": "00617",
   "lat": 18.439109,
-  "lon": -66.540524
+  "lon": -66.540524,
+  "oic": false
  },
  {
   "property_id": "TORONTOPO",
@@ -1669,7 +1877,8 @@
   "address": "13850 Steeles Avenue W Halton Hills ON L7G 0J1",
   "postal_code": "L7G 0J1",
   "lat": 43.575571,
-  "lon": -79.82984
+  "lon": -79.82984,
+  "oic": false
  },
  {
   "property_id": "MONTREALPO",
@@ -1677,7 +1886,8 @@
   "address": "19001 Chemin Notre-Dame Montreal QC J7J 0T1",
   "postal_code": "J7J 0T1",
   "lat": 45.673842,
-  "lon": -73.919223
+  "lon": -73.919223,
+  "oic": false
  },
  {
   "property_id": "EDMONTONPO",
@@ -1685,7 +1895,8 @@
   "address": "1 Outlet Collection Way Leduc AB T9E 1J5 Canada",
   "postal_code": "T9E 1J5",
   "lat": 53.302042,
-  "lon": -113.553398
+  "lon": -113.553398,
+  "oic": false
  },
  {
   "property_id": "QUERETAROPO",
@@ -1693,7 +1904,8 @@
   "address": "Carretera Cuota, Quer\u00e9taro - Celaya 45D-KM 6.3 76904 Qro. Mexico",
   "postal_code": "76904",
   "lat": 20.575975,
-  "lon": -100.463703
+  "lon": -100.463703,
+  "oic": false
  },
  {
   "property_id": "PUNTANORTEPO",
@@ -1701,6 +1913,34 @@
   "address": "Hacienda de Sierra Vieja 2 Hacienda del Parque 54769 Cuautitl\u00e1n Izcalli M\u00e9x. Mexico",
   "postal_code": "54769",
   "lat": 19.602012,
-  "lon": -99.191015
+  "lon": -99.191015,
+  "oic": false
+ },
+ {
+  "property_id": "SQUAREONE",
+  "name": "Square One Mall",
+  "address": "1201 Broadway Saugus MA 01906",
+  "postal_code": "01906",
+  "lat": 42.4608,
+  "lon": -71.0273,
+  "oic": true
+ },
+ {
+  "property_id": "TULSAPO",
+  "name": "Tulsa Premium Outlets",
+  "address": "801 E Outlet Dr Jenks OK 74037",
+  "postal_code": "74037",
+  "lat": 36.01495,
+  "lon": -95.96205,
+  "oic": true
+ },
+ {
+  "property_id": "TWELVEOAKS",
+  "name": "Twelve Oaks Mall",
+  "address": "27500 Novi Road Novi MI 48377",
+  "postal_code": "48377",
+  "lat": 42.49209,
+  "lon": -83.46967,
+  "oic": true
  }
 ]

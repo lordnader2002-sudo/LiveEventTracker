@@ -11,7 +11,7 @@ on:
       radius_miles:
         description: "Search radius around each property (miles)"
         required: false
-        default: "10"
+        default: "5"
       lookahead_days:
         description: "How many days ahead to search"
         required: false
@@ -45,7 +45,7 @@ jobs:
           EVENTBRITE_API_TOKEN: ${{ secrets.EVENTBRITE_API_TOKEN }}
           STUBHUB_CLIENT_ID: ${{ secrets.STUBHUB_CLIENT_ID }}
           STUBHUB_CLIENT_SECRET: ${{ secrets.STUBHUB_CLIENT_SECRET }}
-          RADIUS_MILES: ${{ github.event.inputs.radius_miles || '10' }}
+          RADIUS_MILES: ${{ github.event.inputs.radius_miles || '5' }}
           LOOKAHEAD_DAYS: ${{ github.event.inputs.lookahead_days || '30' }}
         run: python scripts/fetch_events.py
 
