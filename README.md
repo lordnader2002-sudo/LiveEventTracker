@@ -39,8 +39,10 @@ API policies, which the feed's per-source status makes visible in the UI header.
 *Actions → Fetch events → Run workflow.* It fetches all sources, writes
 `docs/data/events.json` + `docs/data/properties.json`, and commits them.
 Scheduled (cron) runs only fire on the **default branch**. The schedule is
-daily at 10:00 UTC — 6am ET during daylight saving time, 5am ET in winter
-(GitHub cron has no DST awareness).
+daily at 9:37 UTC — GitHub's shared scheduler runs cron jobs late (often by
+30–120 minutes, worst at the top of the hour), so the job is scheduled ahead
+of the 6am ET target at an off-peak minute. GitHub cron has no DST awareness,
+so winter runs land about an hour earlier relative to ET.
 
 ### 3. Enable GitHub Pages
 
