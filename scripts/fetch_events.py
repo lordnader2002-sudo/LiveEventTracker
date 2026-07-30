@@ -79,6 +79,7 @@ def load_properties():
                     "postal_code": (row.get("postal_code") or "").strip(),
                     "lat": float(row["lat"]),
                     "lon": float(row["lon"]),
+                    "oic": (row.get("oic") or "").strip().upper() in ("TRUE", "1", "YES"),
                 })
             except (KeyError, ValueError) as e:
                 log(f"WARN: skipping bad property row {row!r}: {e}")
