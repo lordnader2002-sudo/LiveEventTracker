@@ -190,6 +190,21 @@
                 ev.category = "Other";
             }
         }
+        // Mirror the pipeline's rules so even an older published feed obeys
+        // them: no past dates (viewer-local), and no attraction-style
+        // inventory (museum admissions, venue tours, ziplines — anything the
+        // sources file under Film or an unclassifiable "Other").
+        const ATTRACTION_RE = /\b(admission|museum|exhibits?|exhibitions?|gallery|zipline|observation deck|viewing deck|guided tours?|tour experience|stadium tours?|arena tours?|studio tours?|walking tours?|ghost tours?|escape room|aquarium|coaster|4-?d experience|trivia|bingo|mahjong|wax)\b/i;
+        const now = new Date();
+        const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+        state.events = state.events.filter((ev) => {
+            const d = eventDate(ev);
+            if (d && d < todayStr) return false;
+            if (/^(other|film)$/i.test(ev.category)) return false;
+            if (ATTRACTION_RE.test(ev.title) ||
+                ATTRACTION_RE.test((ev.venue || {}).name || "")) return false;
+            return true;
+        });
     }
 
     // ----------------------------------------------------------------- header

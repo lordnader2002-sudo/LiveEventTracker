@@ -6,7 +6,10 @@ mall properties, so operations teams can anticipate traffic and staffing impact.
 - **Data pipeline** — `scripts/fetch_events.py` queries the Ticketmaster,
   SeatGeek, Eventbrite and StubHub APIs for events within a radius of every
   property in `data/properties.csv` and writes a normalized feed to
-  `docs/data/events.json`.
+  `docs/data/events.json`. Only crowd-drawing live events are kept (Music,
+  Sports, Arts & Theatre, Family, festivals/circus/ice shows) — attraction
+  inventory like museum admissions, venue tours, and ziplines is filtered
+  out, as are events dated before the fetch day.
 - **Automation** — the *Fetch events* GitHub Actions workflow runs the pipeline
   every morning at 6am ET (plus on demand) and commits the updated feed.
 - **UI** — `docs/` is a static site (GitHub Pages-ready): searchable property
