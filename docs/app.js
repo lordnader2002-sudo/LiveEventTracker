@@ -764,14 +764,6 @@
 
     function setupControls() {
         const setFilter = (fn) => (e) => { fn(e); state.page = 1; render(); };
-        let radiusTimer = null;
-        $("radius").addEventListener("input", (e) => {
-            state.radius = +e.target.value;
-            $("radius-value").textContent = state.radius;
-            state.page = 1;
-            clearTimeout(radiusTimer);  // debounce: full re-render is heavy
-            radiusTimer = setTimeout(render, 150);
-        });
         $("keyword").addEventListener("input", setFilter((e) => { state.keyword = e.target.value.trim(); }));
         $("group").addEventListener("change", setFilter((e) => { state.group = e.target.value; }));
         $("category").addEventListener("change", setFilter((e) => { state.category = e.target.value; }));
@@ -780,12 +772,9 @@
         $("reset-filters").addEventListener("click", () => {
             state.keyword = state.dateFrom = state.dateTo = state.category = state.source = "";
             state.group = "";
-            state.radius = 5;
             state.sort = { key: null, dir: 1 };
             $("keyword").value = "";
             $("group").value = $("category").value = $("source").value = "";
-            $("radius").value = 5;
-            $("radius-value").textContent = "5";
             clearProperty();
         });
         $("view-toggle").addEventListener("click", () => {
