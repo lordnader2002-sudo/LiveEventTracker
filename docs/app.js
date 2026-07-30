@@ -29,7 +29,7 @@
         authed: false,
         selectedProperty: null,
         group: "",  // "" = all properties, "oic" = OIC-monitored only
-        radius: 10,
+        radius: 5,
         sort: { key: null, dir: 1 },  // null key = default sort (distance)
         ovSort: { key: "property", dir: 1 },
         page: 1,
@@ -780,12 +780,12 @@
         $("reset-filters").addEventListener("click", () => {
             state.keyword = state.dateFrom = state.dateTo = state.category = state.source = "";
             state.group = "";
-            state.radius = 10;
+            state.radius = 5;
             state.sort = { key: null, dir: 1 };
             $("keyword").value = "";
             $("group").value = $("category").value = $("source").value = "";
-            $("radius").value = 10;
-            $("radius-value").textContent = "10";
+            $("radius").value = 5;
+            $("radius-value").textContent = "5";
             clearProperty();
         });
         $("view-toggle").addEventListener("click", () => {

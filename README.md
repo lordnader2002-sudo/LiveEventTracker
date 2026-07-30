@@ -88,7 +88,7 @@ on the manual workflow run):
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `RADIUS_MILES` | `10` | Search radius around each property |
+| `RADIUS_MILES` | `5` | Search radius around each property |
 | `LOOKAHEAD_DAYS` | `30` | How far into the future to search |
 | `MAX_PROPERTIES` | `0` (all) | Limit properties processed — handy for testing |
 
@@ -143,7 +143,7 @@ range of several properties lists each of them in `nearby_properties`.
 ## Repository layout
 
 ```
-data/properties.csv              # 213 properties (id, name, address, lat/lon)
+data/properties.csv              # 216 properties (id, name, address, lat/lon, OIC flag)
 scripts/fetch_events.py          # pipeline: fetch → normalize → dedupe → JSON
 docs/                            # static UI (GitHub Pages)
   index.html / app.js / styles.css

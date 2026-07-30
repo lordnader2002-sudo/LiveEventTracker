@@ -1915,5 +1915,32 @@
   "lat": 19.602012,
   "lon": -99.191015,
   "oic": false
+ },
+ {
+  "property_id": "SQUAREONE",
+  "name": "Square One Mall",
+  "address": "1201 Broadway Saugus MA 01906",
+  "postal_code": "01906",
+  "lat": 42.4608,
+  "lon": -71.0273,
+  "oic": true
+ },
+ {
+  "property_id": "TULSAPO",
+  "name": "Tulsa Premium Outlets",
+  "address": "801 E Outlet Dr Jenks OK 74037",
+  "postal_code": "74037",
+  "lat": 36.01495,
+  "lon": -95.96205,
+  "oic": true
+ },
+ {
+  "property_id": "TWELVEOAKS",
+  "name": "Twelve Oaks Mall",
+  "address": "27500 Novi Road Novi MI 48377",
+  "postal_code": "48377",
+  "lat": 42.49209,
+  "lon": -83.46967,
+  "oic": true
  }
 ]
