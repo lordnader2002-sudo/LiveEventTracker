@@ -3,9 +3,12 @@ name: Fetch events
 
 on:
   schedule:
-    # Every morning at 6am ET. GitHub cron is UTC, which has no DST awareness:
-    # 10:00 UTC = 6am EDT (summer) / 5am EST (winter).
-    - cron: "0 10 * * *"
+    # Target: every morning ~6am ET. GitHub's scheduler runs jobs late —
+    # top-of-the-hour slots worst of all (our 10:00 UTC run fired at 11:58) —
+    # so schedule an off-peak minute ahead of target: 9:37 UTC = 5:37am EDT,
+    # which with typical delay lands around 6am ET. (UTC cron has no DST
+    # awareness; winter runs land ~an hour earlier relative to ET.)
+    - cron: "37 9 * * *"
   workflow_dispatch:
     inputs:
       radius_miles:
