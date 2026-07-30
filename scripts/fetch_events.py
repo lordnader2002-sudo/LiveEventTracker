@@ -131,6 +131,25 @@ def clean_category(name):
     return name
 
 
+# The tracker is for crowd-drawing live events. Ticketing platforms also sell
+# attraction-style inventory — museum admissions, venue tours, ziplines,
+# trivia nights — which these patterns exclude regardless of source.
+ATTRACTION_TITLE_RE = re.compile(
+    r"\b(admission|museum|exhibits?|exhibitions?|gallery|zipline|observation deck|"
+    r"viewing deck|guided tours?|tour experience|stadium tours?|arena tours?|"
+    r"studio tours?|walking tours?|ghost tours?|escape room|aquarium|coaster|"
+    r"4-?d experience|trivia|bingo|mahjong|wax)\b", re.I)
+ATTRACTION_VENUE_RE = re.compile(r"\b(museum|gallery|aquarium|zipline)\b", re.I)
+
+
+def is_crowd_event(ev):
+    if ATTRACTION_TITLE_RE.search(ev.get("title") or ""):
+        return False
+    if ATTRACTION_VENUE_RE.search((ev.get("venue") or {}).get("name") or ""):
+        return False
+    return True
+
+
 # --------------------------------------------------------------------------- adapters
 #
 # Each adapter yields normalized event dicts:
@@ -168,11 +187,16 @@ def fetch_ticketmaster(props, window_start, window_end, status):
             log(f"WARN: ticketmaster query failed for {prop['property_id']}: {e}")
             continue
         for ev in (data.get("_embedded") or {}).get("events", []):
-            if ev.get("id") in seen or ev.get("test"):
+            title = ev.get("name") or ""
+            # The API's test flag misses some internal events ("TEST BL Flex
+            # Test" at "Ticketmaster Test Arena") — filter by name too.
+            if ev.get("id") in seen or ev.get("test") or title.upper().startswith("TEST "):
                 continue
             seen.add(ev.get("id"))
             venues = (ev.get("_embedded") or {}).get("venues") or [{}]
             v = venues[0]
+            if "ticketmaster test" in (v.get("name") or "").lower():
+                continue
             loc = v.get("location") or {}
             try:
                 vlat, vlon = float(loc["latitude"]), float(loc["longitude"])
@@ -180,13 +204,22 @@ def fetch_ticketmaster(props, window_start, window_end, status):
                 continue
             dates = (ev.get("dates") or {}).get("start") or {}
             classification = (ev.get("classifications") or [{}])[0]
-            segment = (classification.get("segment") or {}).get("name")
+            segment = (classification.get("segment") or {}).get("name") or ""
+            genre = (classification.get("genre") or {}).get("name") or ""
+            # Keep crowd-drawing segments only. "Miscellaneous" is mostly
+            # attractions, but a few of its genres are genuine crowd events.
+            if segment in ("Music", "Sports", "Arts & Theatre", "Family"):
+                category = segment
+            elif segment == "Miscellaneous" and genre in ("Fairs & Festivals", "Circus", "Ice Shows"):
+                category = genre
+            else:
+                continue  # Film, Undefined, and remaining Miscellaneous
             prices = ev.get("priceRanges") or []
             yield {
                 "id": f"tm:{ev['id']}",
                 "source": "ticketmaster",
                 "title": ev.get("name", "Untitled event"),
-                "category": clean_category(segment),
+                "category": category,
                 "start_utc": dates.get("dateTime"),
                 "start_local": dates.get("localDate", "") + ("T" + dates["localTime"] if dates.get("localTime") else ""),
                 "venue": {
@@ -485,6 +518,10 @@ def run_fetch():
 
     window_start = datetime.now(timezone.utc).replace(microsecond=0)
     window_end = window_start + timedelta(days=LOOKAHEAD_DAYS)
+    # Sources return long-running "flex" attractions dated by when their run
+    # STARTED (a museum admission from April is still on sale today). Drop
+    # anything dated before the fetch day so the feed never shows the past.
+    cutoff_date = window_start.strftime("%Y-%m-%d")
 
     all_events = []
     sources = {}
@@ -494,6 +531,11 @@ def run_fetch():
         started = time.monotonic()
         try:
             for ev in adapter(props, window_start, window_end, status) or []:
+                event_date = (ev.get("start_utc") or ev.get("start_local") or "")[:10]
+                if event_date and event_date < cutoff_date:
+                    continue
+                if not is_crowd_event(ev):
+                    continue
                 if attach_properties(ev, props):
                     all_events.append(ev)
                     status["events"] += 1
